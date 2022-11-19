@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Education App',
+      title: 'JemputAh App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/size.dart';
 import 'package:jemputah_app/screens/featured_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:jemputah_app/screens/pesanan_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     FeaturedScreen(),
-    FeaturedScreen(),
+    AppBarApp(),
     FeaturedScreen(),
     FeaturedScreen(),
   ];
@@ -28,9 +29,9 @@ class _BaseScreenState extends State<BaseScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: white,
-          unselectedItemColor: brokenWhite,
-          backgroundColor: mainGreen,
+          selectedItemColor: AppColors.white,
+          unselectedItemColor: AppColors.brokenWhite,
+          backgroundColor: AppColors.mainGreen,
           elevation: 0,
           items: [
             BottomNavigationBarItem(
@@ -64,7 +65,7 @@ class _BaseScreenState extends State<BaseScreen> {
                 isTukarNotSelected,
                 height: kBottomNavigationBarItemSize,
               ),
-              label: "Tukar",
+              label: "TUKAR",
             ),
             BottomNavigationBarItem(
               activeIcon: Image.asset(
