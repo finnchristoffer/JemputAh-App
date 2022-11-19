@@ -1,8 +1,8 @@
-import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:flutter/material.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
       title: 'Education App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -38,7 +39,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const BaseScreen(),
     );
   }
 }
