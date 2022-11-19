@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 
-class AppBarApp extends StatelessWidget {
-  const AppBarApp({super.key});
+class Pesanan extends StatelessWidget {
+  const Pesanan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AppBarExample(),
+      home: PesananPage(),
     );
   }
 }
 
-class AppBarExample extends StatelessWidget {
-  AppBarExample({super.key});
+class PesananPage extends StatelessWidget {
+  PesananPage({super.key});
 
   final titles = ["Pesanan Selesai", "Pesanan Selesai", "Pesananan Selesai"];
   final subtitles = [

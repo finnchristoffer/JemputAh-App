@@ -17,7 +17,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     FeaturedScreen(),
-    AppBarApp(),
+    Pesanan(),
     FeaturedScreen(),
     FeaturedScreen(),
   ];
