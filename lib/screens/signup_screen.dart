@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => InitState();
 }
@@ -14,11 +16,11 @@ class InitState extends State<SignUpScreen> {
 
   Widget initWidget() {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 246, 233, 1),
+      backgroundColor: const Color.fromRGBO(245, 246, 233, 1),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 264,
               child: Center(
                 child: Column(
@@ -26,23 +28,23 @@ class InitState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 30),
-                      child: Image.asset('assets/images/logo.png'),
+                      margin: const EdgeInsets.only(top: 30),
                       height: 234,
                       width: 234,
+                      child: Image.asset('assets/images/logo.png'),
                     ),
                   ],
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
                       blurRadius: 50,
@@ -50,7 +52,7 @@ class InitState extends State<SignUpScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 cursorColor: Color(0xffF5591F),
                 decoration: InputDecoration(
                   icon: Icon(
@@ -64,13 +66,13 @@ class InitState extends State<SignUpScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
                       blurRadius: 50,
@@ -78,7 +80,7 @@ class InitState extends State<SignUpScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 cursorColor: Color(0xffF5591F),
                 decoration: InputDecoration(
                   icon: Icon(
@@ -92,13 +94,13 @@ class InitState extends State<SignUpScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
                       blurRadius: 50,
@@ -106,7 +108,7 @@ class InitState extends State<SignUpScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 cursorColor: Color(0xffF5591F),
                 decoration: InputDecoration(
                   icon: Icon(
@@ -120,13 +122,13 @@ class InitState extends State<SignUpScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
                       blurRadius: 50,
@@ -134,7 +136,7 @@ class InitState extends State<SignUpScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 obscureText: true,
                 cursorColor: Color(0xffF5591F),
                 decoration: InputDecoration(
@@ -149,13 +151,13 @@ class InitState extends State<SignUpScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
                       blurRadius: 50,
@@ -163,7 +165,7 @@ class InitState extends State<SignUpScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: TextField(
+              child: const TextField(
                 obscureText: true,
                 cursorColor: Color(0xffF5591F),
                 decoration: InputDecoration(
@@ -182,36 +184,38 @@ class InitState extends State<SignUpScreen> {
                 /* onClick code nanti disini */
               },
               child: Container(
-                margin: EdgeInsets.only(left: 30, right: 30, top: 50),
+                margin: const EdgeInsets.only(left: 30, right: 30, top: 50),
                 alignment: Alignment.center,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(62, 75, 42, 1),
+                  color: const Color.fromRGBO(62, 75, 42, 1),
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         offset: Offset(0, 10),
                         blurRadius: 50,
                         color: Color(0xffEEEEEE)),
                   ],
                 ),
-                child: Text(
+                child: const Text(
                   'DAFTAR',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text('Sudah punya akun? '),
+                const Text('Sudah punya akun? '),
                 GestureDetector(
                   onTap: () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()))
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()))
                   },
-                  child: Text(
+                  child: const Text(
                     'Login di sini',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
