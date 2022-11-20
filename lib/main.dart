@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jemputah_app/screens/base_screen.dart';
 import 'screens/splash_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +17,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: 'JemputAh App',
-      home: SplashScreen(),
+      home: BaseScreen(),
+      //SplashScreen(),
 
       theme: ThemeData(
         primarySwatch: Colors.blue,

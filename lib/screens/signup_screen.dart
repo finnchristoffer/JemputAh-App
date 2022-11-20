@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jemputah_app/constants/color.dart';
+import 'package:jemputah_app/constants/image.dart';
 import './login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,7 +16,7 @@ class InitState extends State<SignUpScreen> {
 
   Widget initWidget() {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245, 246, 233, 1),
+      backgroundColor: AppColors.backgroundGreen,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -27,7 +29,7 @@ class InitState extends State<SignUpScreen> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(top: 30),
-                      child: Image.asset('assets/images/logo.png'),
+                      child: Image.asset(logo),
                       height: 234,
                       width: 234,
                     ),
