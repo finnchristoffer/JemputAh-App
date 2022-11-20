@@ -1,24 +1,13 @@
-const _pathTapBar = 'assets/icons/';
+const _pathIcon = 'assets/icons';
 
-// const icFeatured = '$_path/star.png';
-// const icFeaturedOutlined = '$_path/star_outlined.png';
-// const icLearning = '$_path/play.png';
-// const icLearningOutlined = '$_path/play_outlined.png';
-// const icWishlist = '$_path/heart.png';
-// const icWishlistOutlined = '$_path/heart_outlined.png';
-// const icSetting = '$_path/settings.png';
-// const icSettingOutlined = '$_path/settings_outlined.png';
-// const icDone = '$_path/done.png';
-// const icLock = '$_path/lock.png';
-// const icPlayNext = '$_path/play_next.png';
-// const icPause = '$_path/pause.png';
-
-const isHome = '$_pathTapBar/home_selected.png';
-const isHomeNotSelected = '$_pathTapBar/home_not_selected.png';
-const isPesanan = '$_pathTapBar/pesanan_selected.png';
-const isPesananNotSelected = '$_pathTapBar/pesanan_not_selected.png';
-const isTukar = '$_pathTapBar/tukar_selected.png';
-const isTukarNotSelected = '$_pathTapBar/tukar_not_selected.png';
-const isProfil = '$_pathTapBar/profil_selected.png';
-const isProfilNotSelected = '$_pathTapBar/profil_not_selected.png';
-const iconPesananSelesai = '$_pathTapBar/pesanan_selesai.png';
+const isHome = '$_pathIcon/home_selected.png';
+const isHomeNotSelected = '$_pathIcon/home_not_selected.png';
+const isPesanan = '$_pathIcon/pesanan_selected.png';
+const isPesananNotSelected = '$_pathIcon/pesanan_not_selected.png';
+const isTukar = '$_pathIcon/tukar_selected.png';
+const isTukarNotSelected = '$_pathIcon/tukar_not_selected.png';
+const isProfil = '$_pathIcon/profil_selected.png';
+const isProfilNotSelected = '$_pathIcon/profil_not_selected.png';
+const iconPesananSelesai = '$_pathIcon/pesanan_selesai.png';
+const iconTransaksi = '$_pathIcon/TransactionHistory.png';
+const iconJadwal = '$_pathIcon/IconJadwal_edited.png';
