@@ -31,10 +31,9 @@ class InitState extends State<LoginScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(top: 40),
-                      child: Image.asset(logo),
                       height: 234,
                       width: 234,
-                      child: Image.asset('assets/images/logo.png'),
+                      child: Image.asset(logo),
                     ),
                   ],
                 ),
