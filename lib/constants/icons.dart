@@ -11,6 +11,7 @@ const isProfilNotSelected = '$_pathIcon/profil_not_selected.png';
 const iconPesananSelesai = '$_pathIcon/pesanan_selesai.png';
 const iconTransaksi = '$_pathIcon/TransactionHistory.png';
 const iconJadwal = '$_pathIcon/IconJadwal_edited.png';
+const iconKoin = '$_pathIcon/icon_koin.png';
 const iconPlastik = '$_pathIcon/icon_plastik.png';
 const iconKarton = '$_pathIcon/icon_karton.png';
 const iconKaca = '$_pathIcon/icon_kaca.png';
