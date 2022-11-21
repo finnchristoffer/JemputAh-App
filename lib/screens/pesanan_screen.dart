@@ -26,6 +26,7 @@ class PesananPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.backgroundGreen,
         appBar: AppBar(
           //make background color black
           backgroundColor: AppColors.mainGreen,
@@ -36,17 +37,18 @@ class PesananPage extends StatelessWidget {
             itemCount: titles.length,
             itemBuilder: (context, index) {
               return Card(
+                  color: AppColors.backgroundGreen,
                   child: ListTile(
-                //set title with style bold
-                title: Text(titles[index],
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text(subtitles[index]),
-                leading: Image.asset(
-                  iconPesananSelesai,
-                  width: 50,
-                  height: 50,
-                ),
-              ));
+                    //set title with style bold
+                    title: Text(titles[index],
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(subtitles[index]),
+                    leading: Image.asset(
+                      iconPesananSelesai,
+                      width: 50,
+                      height: 50,
+                    ),
+                  ));
             }));
   }
 }
