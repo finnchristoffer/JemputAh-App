@@ -1,4 +1,4 @@
-const _pathTapBar = 'assets/icons/';
+const _pathTapBar = 'assets/icons';
 
 // const icFeatured = '$_path/star.png';
 // const icFeaturedOutlined = '$_path/star_outlined.png';
@@ -22,3 +22,7 @@ const isTukarNotSelected = '$_pathTapBar/tukar_not_selected.png';
 const isProfil = '$_pathTapBar/profil_selected.png';
 const isProfilNotSelected = '$_pathTapBar/profil_not_selected.png';
 const iconPesananSelesai = '$_pathTapBar/pesanan_selesai.png';
+const iconPlastik = '$_pathTapBar/icon_plastik.png';
+const iconKarton = '$_pathTapBar/icon_karton.png';
+const iconKaca = '$_pathTapBar/icon_kaca.png';
+const iconKaleng = '$_pathTapBar/icon_kaleng.png';
