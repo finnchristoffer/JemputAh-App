@@ -4,6 +4,7 @@ import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/size.dart';
 import 'package:jemputah_app/screens/featured_screen.dart';
 import 'package:jemputah_app/screens/pesanan_screen.dart';
+import 'package:jemputah_app/screens/tukar_screen.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _BaseScreenState extends State<BaseScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     FeaturedScreen(),
     PesananPage(),
-    FeaturedScreen(),
+    Tukar(),
     FeaturedScreen(),
   ];
   @override
