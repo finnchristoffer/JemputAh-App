@@ -40,7 +40,7 @@ class _AddressDetailState extends State<AddressDetailPage> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey),
@@ -52,18 +52,21 @@ class _AddressDetailState extends State<AddressDetailPage> {
                       color: Color(0xffEEEEEE)),
                 ],
               ),
-              alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
                 keyboardType: TextInputType.multiline,
                 minLines: 3,
-                maxLines: 5,
-                cursorColor: Color.fromRGBO(62, 75, 42, 1),
+                maxLines: 3,
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                  icon: Padding(
+                    padding: EdgeInsets.only(bottom: 35),
+                    child: Icon(
+                      Icons.home,
+                      color: AppColors.mainGreen,
+                    ),
                   ),
                   hintText: 'Alamat Lengkap',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -91,14 +94,15 @@ class _AddressDetailState extends State<AddressDetailPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
-                cursorColor: Color.fromRGBO(62, 75, 42, 1),
+              child: TextField(
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.home_work,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kecamatan',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -119,14 +123,15 @@ class _AddressDetailState extends State<AddressDetailPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
-                cursorColor: Color.fromRGBO(62, 75, 42, 1),
+              child: TextField(
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.location_city,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kota',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -147,14 +152,15 @@ class _AddressDetailState extends State<AddressDetailPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
-                cursorColor: Color.fromRGBO(62, 75, 42, 1),
+              child: TextField(
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.numbers,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kode Pos',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),

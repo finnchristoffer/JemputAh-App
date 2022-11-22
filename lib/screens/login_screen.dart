@@ -54,14 +54,15 @@ class InitState extends State<LoginScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
-                cursorColor: Color(0xffF5591F),
+              child: TextField(
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.email,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Email',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -82,15 +83,16 @@ class InitState extends State<LoginScreen> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
                 obscureText: true,
-                cursorColor: Color(0xffF5591F),
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.vpn_key,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kata Sandi',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),

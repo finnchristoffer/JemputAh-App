@@ -11,4 +11,5 @@ class AppColors {
   static Color jadwalCardBackground = const Color.fromRGBO(178, 186, 159, 0.5);
   static Color contactUs = const Color.fromRGBO(0, 0, 0, 0.8);
   static Color secondaryBorder = const Color.fromRGBO(178, 186, 159, 1);
+  static Color hintTextColor = const Color.fromRGBO(0, 0, 0, 0.5);
 }
