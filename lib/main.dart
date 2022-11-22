@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jemputah_app/screens/address_detail_screen.dart';
-import 'package:jemputah_app/screens/contact_us_screen.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
