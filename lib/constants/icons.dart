@@ -16,3 +16,4 @@ const iconPlastik = '$_pathIcon/icon_plastik.png';
 const iconKarton = '$_pathIcon/icon_karton.png';
 const iconKaca = '$_pathIcon/icon_kaca.png';
 const iconKaleng = '$_pathIcon/icon_kaleng.png';
+const iconTelpon = '$_pathIcon/iconTelepon.png';

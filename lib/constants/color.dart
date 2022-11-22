@@ -10,4 +10,5 @@ class AppColors {
   static Color buttonBackground = const Color.fromRGBO(62, 75, 42, 1);
   static Color jadwalCardBackground = const Color.fromRGBO(178, 186, 159, 0.5);
   static Color secondaryBorder = const Color.fromRGBO(178, 186, 159, 1);
+  static Color separatorLine = const Color.fromRGBO(217, 217, 217, 1);
 }
