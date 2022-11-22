@@ -53,15 +53,16 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
                 obscureText: true,
-                cursorColor: Color(0xffF5591F),
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.lock,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kata Sandi Lama',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -82,15 +83,16 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
                 obscureText: true,
-                cursorColor: Color(0xffF5591F),
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.vpn_key,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Kata Sandi Baru',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
@@ -111,15 +113,16 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
                 ],
               ),
               alignment: Alignment.center,
-              child: const TextField(
+              child: TextField(
                 obscureText: true,
-                cursorColor: Color(0xffF5591F),
+                cursorColor: AppColors.buttonBackground,
                 decoration: InputDecoration(
                   icon: Icon(
                     Icons.vpn_key,
-                    color: Color.fromRGBO(85, 91, 77, 1),
+                    color: AppColors.mainGreen,
                   ),
                   hintText: 'Masukan Ulang Kata Sandi Baru',
+                  hintStyle: TextStyle(color: AppColors.hintTextColor),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
