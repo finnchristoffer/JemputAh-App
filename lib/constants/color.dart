@@ -9,4 +9,5 @@ class AppColors {
   static Color backgroundGreen = const Color.fromRGBO(245, 246, 233, 1);
   static Color buttonBackground = const Color.fromRGBO(62, 75, 42, 1);
   static Color jadwalCardBackground = const Color.fromRGBO(178, 186, 159, 0.5);
+  static Color secondaryBorder = const Color.fromRGBO(178, 186, 159, 1);
 }
