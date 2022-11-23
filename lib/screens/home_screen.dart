@@ -325,11 +325,6 @@ class _JadwalJemput extends StatelessWidget {
 
   final List<String> entries = <String>['A', 'B', 'C'];
 
-  List<String> tglPenjemputan = [
-    "Jumat, 23 September 2022",
-    "Sabtu, 24 September 2022",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -417,11 +412,11 @@ class _JadwalJemput extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    trailing: Padding(
+                    trailing: const Padding(
                       padding: EdgeInsets.only(
                         bottom: 5,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.navigate_next,
                         size: 60,
                       ),
