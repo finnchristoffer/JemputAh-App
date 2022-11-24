@@ -26,7 +26,6 @@ class _HistoryTransactionButton extends StatelessWidget {
       icon: Image.asset(
         iconTransaksi,
       ),
-      tooltip: "Go to Next Page",
       onPressed: () {
         Navigator.push(context, MaterialPageRoute<void>(
           builder: (BuildContext context) {
@@ -328,7 +327,7 @@ class _JadwalJemput extends StatelessWidget {
             itemCount: penjemputan.length,
             itemBuilder: (BuildContext context, int index) {
               return SizedBox(
-                height: 100,
+                height: 113,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -338,6 +337,10 @@ class _JadwalJemput extends StatelessWidget {
                   ),
                   color: AppColors.jadwalCardBackground,
                   child: ListTile(
+                    visualDensity: const VisualDensity(
+                      horizontal: -4,
+                      vertical: 4,
+                    ),
                     title: Padding(
                       padding: const EdgeInsets.only(
                         top: 5,
@@ -389,13 +392,17 @@ class _JadwalJemput extends StatelessWidget {
                     ),
                     trailing: const Padding(
                       padding: EdgeInsets.only(
-                        bottom: 5,
+                        left: 5,
+                        top: 5,
                       ),
                       child: Icon(
                         Icons.navigate_next,
                         size: 60,
                       ),
                     ),
+                    minLeadingWidth: 64,
+                    dense: true,
+                    horizontalTitleGap: 8.5,
                     onTap: null,
                   ),
                 ),
@@ -434,18 +441,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          Container(
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    _JemputBox(),
-                    _Carousel(),
-                    _JadwalJemput(),
-                  ],
-                )
-              ],
-            ),
+          ListView(
+            children: [
+              Column(
+                children: [
+                  _JemputBox(),
+                  _Carousel(),
+                  _JadwalJemput(),
+                ],
+              )
+            ],
           ),
         ],
       ),
