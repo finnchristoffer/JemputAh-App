@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/screens/transaksi_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,17 +29,7 @@ class _HistoryTransactionButton extends StatelessWidget {
       onPressed: () {
         Navigator.push(context, MaterialPageRoute<void>(
           builder: (BuildContext context) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Next page'),
-              ),
-              body: const Center(
-                child: Text(
-                  'This is the next page',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            );
+            return TransaksiScreen();
           },
         ));
       },
@@ -322,8 +311,6 @@ class _JadwalJemput extends StatelessWidget {
       "alamat": "Jalan Lengkong Kecil No. 47",
     }
   ];
-
-  final List<String> entries = <String>['A', 'B', 'C'];
 
   @override
   Widget build(BuildContext context) {

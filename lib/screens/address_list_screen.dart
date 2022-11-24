@@ -43,7 +43,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
         actions: [
           InkWell(
             child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 20,
                 right: 10,
               ),
@@ -70,12 +70,12 @@ class _AddressListScreenState extends State<AddressListScreen> {
       body: ListView(
         children: [
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 34,
               left: 24,
               bottom: 10,
             ),
-            child: Text("Alamat Penjemputan"),
+            child: const Text("Alamat Penjemputan"),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height,
@@ -87,7 +87,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                     borderRadius: BorderRadius.circular(15),
                     color: AppColors.secondaryBorder,
                   ),
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 12,
                   ),
                   child: Column(
@@ -95,7 +95,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 25,
                           top: 10,
                           bottom: 5,
@@ -106,7 +106,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 25,
                           bottom: 5,
                         ),
@@ -115,7 +115,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 25,
                           bottom: 10,
                         ),
@@ -124,7 +124,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                             Text(
                               address[index]["kota"] as String,
                             ),
-                            Text("  |   "),
+                            const Text("  |   "),
                             Text(
                               address[index]["kodePos"] as String,
                             ),
@@ -132,7 +132,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 25,
                           bottom: 15,
                         ),
@@ -148,13 +148,13 @@ class _AddressListScreenState extends State<AddressListScreen> {
                                   ),
                                 ),
                                 onPressed: null,
-                                child: Text(
+                                child: const Text(
                                   "Ubah Alamat",
                                 ),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 left: 30,
                               ),
                               width: 30,
