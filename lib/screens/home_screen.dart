@@ -7,6 +7,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/screens/penjemputan_screen.dart';
+import 'package:jemputah_app/screens/transaksi_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,28 +21,17 @@ class _HistoryTransactionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         bottom: 40,
         right: 15,
       ),
       icon: Image.asset(
         iconTransaksi,
       ),
-      tooltip: "Go to Next Page",
       onPressed: () {
         Navigator.push(context, MaterialPageRoute<void>(
           builder: (BuildContext context) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Next page'),
-              ),
-              body: const Center(
-                child: Text(
-                  'This is the next page',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            );
+            return TransaksiScreen();
           },
         ));
       },
@@ -57,7 +48,7 @@ class _LeadAppBar extends StatelessWidget {
       children: [
         Container(
           width: 200,
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             left: 14,
             top: 5,
           ),
@@ -68,12 +59,12 @@ class _LeadAppBar extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 20,
             left: 14,
           ),
           child: Text(
-            "Hai, " + username,
+            "Hai, $username",
             style: TextStyle(
               color: AppColors.black,
               fontSize: 12,
@@ -95,7 +86,7 @@ class _JemputBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 156,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 20,
         right: 20,
         top: 10,
@@ -104,7 +95,7 @@ class _JemputBox extends StatelessWidget {
         border: Border.all(
           color: Color.fromRGBO(178, 186, 159, 1),
         ),
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
         color: Color.fromRGBO(178, 186, 159, 1),
@@ -113,7 +104,7 @@ class _JemputBox extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 35,
               right: 35,
               top: 30,
@@ -128,12 +119,12 @@ class _JemputBox extends StatelessWidget {
                   child: Text(
                     koin.toString(),
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 21,
                     ),
                   ),
                 ),
-                Text(
+                const Text(
                   " Koin",
                   textAlign: TextAlign.start,
                   style: TextStyle(
@@ -146,14 +137,14 @@ class _JemputBox extends StatelessWidget {
           Container(
             height: 1,
             color: AppColors.black,
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 10,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                   width: 150,
                   height: 30,
                   child: Row(
@@ -164,7 +155,7 @@ class _JemputBox extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 13),
                         child: Text(
-                          jmlJemput.toString() + " Jemput",
+                          "$jmlJemput Jemput",
                         ),
                       ),
                       const VerticalDivider(
@@ -173,12 +164,12 @@ class _JemputBox extends StatelessWidget {
                         color: Colors.black,
                       ),
                       Text(
-                        berat.toString() + " Kg",
+                        "$berat Kg",
                       ),
                     ],
                   )),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   right: 28,
                 ),
                 child: ElevatedButton(
@@ -187,26 +178,16 @@ class _JemputBox extends StatelessWidget {
                       context,
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          return Scaffold(
-                            appBar: AppBar(
-                              title: const Text('Next page'),
-                            ),
-                            body: const Center(
-                              child: Text(
-                                'This is the next page',
-                                style: TextStyle(fontSize: 24),
-                              ),
-                            ),
-                          );
+                          return const PenjemputanScreen();
                         },
                       ),
                     );
                   },
-                  child: Text("Jemput"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.buttonBackground,
                     minimumSize: const Size(110, 35),
                   ),
+                  child: const Text("Jemput"),
                 ),
               ),
             ],
@@ -290,7 +271,7 @@ class _CarouselState extends State<_Carousel> {
 class CarouselView extends StatelessWidget {
   String path;
 
-  CarouselView(this.path);
+  CarouselView(this.path, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -323,13 +304,6 @@ class _JadwalJemput extends StatelessWidget {
     }
   ];
 
-  final List<String> entries = <String>['A', 'B', 'C'];
-
-  List<String> tglPenjemputan = [
-    "Jumat, 23 September 2022",
-    "Sabtu, 24 September 2022",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -354,22 +328,23 @@ class _JadwalJemput extends StatelessWidget {
           child: ListView.separated(
             itemCount: penjemputan.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 100,
+              return SizedBox(
+                height: 113,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 5,
                   ),
                   color: AppColors.jadwalCardBackground,
                   child: ListTile(
-                    contentPadding: EdgeInsets.only(
-                        //bottom: 5,
-                        ),
+                    visualDensity: const VisualDensity(
+                      horizontal: -4,
+                      vertical: 4,
+                    ),
                     title: Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 5,
                         bottom: 10,
                       ),
@@ -386,7 +361,7 @@ class _JadwalJemput extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                             bottom: 10,
                           ),
                           child: Text(
@@ -407,9 +382,9 @@ class _JadwalJemput extends StatelessWidget {
                       ],
                     ),
                     leading: Padding(
-                      padding: EdgeInsets.only(
-                        left: 5,
-                      ),
+                      padding: const EdgeInsets.only(
+                          //left: 5,
+                          ),
                       child: Image.asset(
                         iconJadwal,
                         width: 64,
@@ -417,15 +392,19 @@ class _JadwalJemput extends StatelessWidget {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    trailing: Padding(
+                    trailing: const Padding(
                       padding: EdgeInsets.only(
-                        bottom: 5,
+                        left: 5,
+                        top: 5,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.navigate_next,
                         size: 60,
                       ),
                     ),
+                    minLeadingWidth: 64,
+                    dense: true,
+                    horizontalTitleGap: 8.5,
                     onTap: null,
                   ),
                 ),
@@ -464,18 +443,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Stack(
         children: [
-          Container(
-            child: ListView(
-              children: [
-                Column(
-                  children: [
-                    _JemputBox(),
-                    _Carousel(),
-                    _JadwalJemput(),
-                  ],
-                )
-              ],
-            ),
+          ListView(
+            children: [
+              Column(
+                children: [
+                  _JemputBox(),
+                  _Carousel(),
+                  _JadwalJemput(),
+                ],
+              )
+            ],
           ),
         ],
       ),
