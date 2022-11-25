@@ -15,8 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'JemputAh App',
-      home: BaseScreen(),
-      //const SplashScreen(),
+      home: const SplashScreen(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
