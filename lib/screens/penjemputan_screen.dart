@@ -17,23 +17,57 @@ class InitState extends State<PenjemputanScreen> {
 
   double _totalPendapatan = 0;
 
-  void _incrementWeight() {
-    setState(() {
-      _beratSampahPlastik += 0.5;
-    });
+  List weightOfItems = [0.0, 0.0, 0.0, 0.0];
+
+  void _calculateCoin() {
+    _totalPendapatan = (_beratSampahPlastik * 1000 +
+        _beratSampahKarton * 2000 +
+        _beratSampahKaca * 3000 +
+        _beratSampahKaleng * 4000);
   }
 
-  void _decrementWeight() {
-    if (_beratSampahPlastik == 0.0) {
-      const snackBar = SnackBar(
-        content: Text('Berat minimal adalah 0.0 Kg'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
-      setState(() {
-        _beratSampahPlastik -= 0.5;
-      });
-    }
+  void setWeight() {
+    _beratSampahPlastik = weightOfItems[0];
+    _beratSampahKarton = weightOfItems[1];
+    _beratSampahKaca = weightOfItems[2];
+    _beratSampahKaleng = weightOfItems[3];
+  }
+
+  Widget _incrementWeight(int index) {
+    return FloatingActionButton(
+      backgroundColor: Colors.black,
+      onPressed: () {
+        setState(() {
+          weightOfItems[index] += 0.5;
+          setWeight();
+          _calculateCoin();
+        });
+      },
+      heroTag: null,
+      child: const Icon(Icons.add),
+    );
+  }
+
+  Widget _decrementWeight(int index) {
+    return FloatingActionButton(
+      backgroundColor: AppColors.grayDecrement,
+      onPressed: () {
+        if (weightOfItems[index] == 0.0) {
+          const snackBar = SnackBar(
+            content: Text('Berat minimal adalah 0.0 Kg'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          setState(() {
+            weightOfItems[index] -= 0.5;
+            setWeight();
+            _calculateCoin();
+          });
+        }
+      },
+      child: const Icon(Icons.remove),
+      heroTag: null,
+    );
   }
 
   String lokasiPengambilan = 'Jalan Lengkong Besar';
@@ -119,22 +153,15 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 84, right: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: AppColors.grayDecrement,
-                              onPressed: _decrementWeight,
-                              child: const Icon(Icons.remove)),
+                          child: _decrementWeight(0),
                         ),
                         Text("$_beratSampahPlastik"),
                         const Text('Kg'),
                         Container(
-                          margin: const EdgeInsets.only(left: 18),
-                          height: 30,
-                          width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: Colors.black,
-                              onPressed: _incrementWeight,
-                              child: const Icon(Icons.add)),
-                        ),
+                            margin: const EdgeInsets.only(left: 18),
+                            height: 30,
+                            width: 30,
+                            child: _incrementWeight(0)),
                       ],
                     ),
                   ),
@@ -177,10 +204,7 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 84, right: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: AppColors.grayDecrement,
-                              onPressed: _decrementWeight,
-                              child: const Icon(Icons.remove)),
+                          child: _decrementWeight(1),
                         ),
                         Text("$_beratSampahKarton"),
                         const Text('Kg'),
@@ -188,10 +212,7 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: Colors.black,
-                              onPressed: _incrementWeight,
-                              child: const Icon(Icons.add)),
+                          child: _incrementWeight(1),
                         ),
                       ],
                     ),
@@ -235,10 +256,7 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 84, right: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: AppColors.grayDecrement,
-                              onPressed: _decrementWeight,
-                              child: const Icon(Icons.remove)),
+                          child: _decrementWeight(2),
                         ),
                         Text("$_beratSampahKaca"),
                         const Text('Kg'),
@@ -246,10 +264,7 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: Colors.black,
-                              onPressed: _incrementWeight,
-                              child: const Icon(Icons.add)),
+                          child: _incrementWeight(2),
                         ),
                       ],
                     ),
@@ -293,21 +308,15 @@ class InitState extends State<PenjemputanScreen> {
                           margin: const EdgeInsets.only(left: 84, right: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: AppColors.grayDecrement,
-                              onPressed: _decrementWeight,
-                              child: const Icon(Icons.remove)),
+                          child: _decrementWeight(3),
                         ),
-                        Text("$_beratSampahKaca"),
+                        Text("$_beratSampahKaleng"),
                         const Text('Kg'),
                         Container(
                           margin: const EdgeInsets.only(left: 18),
                           height: 30,
                           width: 30,
-                          child: FloatingActionButton(
-                              backgroundColor: Colors.black,
-                              onPressed: _incrementWeight,
-                              child: const Icon(Icons.add)),
+                          child: _incrementWeight(3),
                         ),
                       ],
                     ),

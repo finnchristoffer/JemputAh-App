@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
+import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -15,8 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'JemputAh App',
-      home: BaseScreen(),
-      //const SplashScreen(),
+      home: const SplashScreen(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Poppins',
