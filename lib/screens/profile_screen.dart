@@ -1,7 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/screens/address_list_screen.dart';
+import 'package:jemputah_app/screens/change_password_screen.dart';
+import 'package:jemputah_app/screens/contact_us_screen.dart';
+import 'package:jemputah_app/screens/edit_profile_screen.dart';
+import 'package:jemputah_app/screens/transaksi_screen.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({Key? key}) : super(key: key);
@@ -13,8 +20,9 @@ class ProfilScreen extends StatefulWidget {
 class _ProfileCard extends StatelessWidget {
   final String name;
   final Widget icon;
+  final ontap;
 
-  const _ProfileCard(this.name, this.icon);
+  const _ProfileCard(this.name, this.icon, this.ontap);
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +72,36 @@ class _ProfileCard extends StatelessWidget {
             color: AppColors.black,
           ),
         ),
-        onTap: null,
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext ctx) => ontap,
+          ),
+        ),
       ),
     );
   }
+}
+
+class GetScreen {
+  final BuildContext ctx;
+
+  GetScreen(this.ctx);
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
   var username = "Adit Dudung";
   var phoneNum = "+628123456789";
   var email = "aditdudung88@gmail.com";
+
+  void getAddressList() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext ctx) => TransaksiScreen(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,10 +184,22 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 padding: const EdgeInsets.only(
                   top: 10,
                 ),
-                child: Icon(
-                  Icons.edit,
-                  size: 24,
-                  color: AppColors.black,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    size: 24,
+                    color: AppColors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext ctx) {
+                          return const EditProfilePage();
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -171,6 +211,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               size: 30,
               color: AppColors.black,
             ),
+            const AddressListScreen(),
           ),
           _ProfileCard(
             "Kontak Kami",
@@ -179,6 +220,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               width: 30,
               height: 30,
             ),
+            const ContactUsPage(),
           ),
           _ProfileCard(
             "Ubah Password",
@@ -187,14 +229,17 @@ class _ProfilScreenState extends State<ProfilScreen> {
               size: 30,
               color: AppColors.black,
             ),
+            const ChangePasswordPage(),
           ),
           _ProfileCard(
-              "Keluar",
-              Icon(
-                Icons.exit_to_app,
-                size: 30,
-                color: AppColors.black,
-              ))
+            "Keluar",
+            Icon(
+              Icons.exit_to_app,
+              size: 30,
+              color: AppColors.black,
+            ),
+            null,
+          ),
         ],
       ),
     );

@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
@@ -115,7 +113,7 @@ class _JemputBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   child: Text(
                     koin.toString(),
                     textAlign: TextAlign.left,
@@ -153,7 +151,7 @@ class _JemputBox extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 13),
+                        padding: const EdgeInsets.only(left: 13),
                         child: Text(
                           "$jmlJemput Jemput",
                         ),
@@ -233,7 +231,7 @@ class _CarouselState extends State<_Carousel> {
               autoPlay: true,
               autoPlayCurve: Curves.fastOutSlowIn,
               enableInfiniteScroll: true,
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
               viewportFraction: 0.6,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -275,7 +273,7 @@ class CarouselView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 275,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(
@@ -383,8 +381,8 @@ class _JadwalJemput extends StatelessWidget {
                     ),
                     leading: Padding(
                       padding: const EdgeInsets.only(
-                          //left: 5,
-                          ),
+                        left: 5,
+                      ),
                       child: Image.asset(
                         iconJadwal,
                         width: 64,
