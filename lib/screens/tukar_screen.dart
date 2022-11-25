@@ -42,7 +42,18 @@ class TukarPage extends StatelessWidget {
     spotify,
     tri
   ];
-  final subtitles = ["test"];
+  final subtitles = [
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
+  ];
+
+  final points = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000];
 
   @override
   Widget build(BuildContext context) {
@@ -56,50 +67,58 @@ class TukarPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 40, left: 45),
-                    child: Text(
-                      "Total Poin",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 40, left: 45),
+                  child: Text(
+                    "Total Poin",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Spacer(),
-                  Container(
-                    margin: EdgeInsets.only(top: 40, right: 60),
-                    child: Text(
-                      point.toString() + "   Koin",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
+                ),
+                Spacer(),
+                Container(
+                  margin: EdgeInsets.only(top: 40, right: 60),
+                  child: Text(
+                    point.toString() + "   Koin",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Expanded(
               child: GridView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(right: 30, left: 30, bottom: 50),
+                padding: const EdgeInsets.only(right: 15, left: 15, bottom: 50),
                 itemCount: titles.length,
+                //change gridview background color
+
                 itemBuilder: (ctx, i) {
                   return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
                     child: Container(
-                      height: 290,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(20),
+                        //make border
+                      ),
                       margin: EdgeInsets.all(5),
                       padding: EdgeInsets.all(5),
                       child: Stack(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
+                            // mainAxisSize: MainAxisSize.max,
                             children: [
                               Expanded(
                                 child: Image.asset(
@@ -107,24 +126,35 @@ class TukarPage extends StatelessWidget {
                                   fit: BoxFit.fill,
                                 ),
                               ),
-                              Text(
-                                titles[i],
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                child: Text(
+                                  titles[i],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Subtitle',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  subtitles[i],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 15,
                                   ),
-                                ],
-                              )
+                                ),
+                              ),
+                              Text(
+                                points[i].toString() + " Koin",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -137,7 +167,7 @@ class TukarPage extends StatelessWidget {
                   childAspectRatio: 1.0,
                   crossAxisSpacing: 0.0,
                   mainAxisSpacing: 5,
-                  mainAxisExtent: 264,
+                  mainAxisExtent: 280,
                 ),
               ),
             ),

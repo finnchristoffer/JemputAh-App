@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 
-class PesananPage extends StatelessWidget {
-  const PesananPage({super.key});
+class Pesanan extends StatelessWidget {
+  const Pesanan({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AppBarExample(),
+      home: PesananPage(),
     );
   }
 }
 
-class AppBarExample extends StatelessWidget {
-  AppBarExample({super.key});
+class PesananPage extends StatelessWidget {
+  PesananPage({super.key});
 
   final titles = ["Pesanan Selesai", "Pesanan Selesai", "Pesananan Selesai"];
   final subtitles = [
@@ -26,6 +26,7 @@ class AppBarExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.backgroundGreen,
         appBar: AppBar(
           //make background color black
           backgroundColor: AppColors.mainGreen,
@@ -36,17 +37,18 @@ class AppBarExample extends StatelessWidget {
             itemCount: titles.length,
             itemBuilder: (context, index) {
               return Card(
+                  color: AppColors.backgroundGreen,
                   child: ListTile(
-                //set title with style bold
-                title: Text(titles[index],
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text(subtitles[index]),
-                leading: Image.asset(
-                  iconPesananSelesai,
-                  width: 50,
-                  height: 50,
-                ),
-              ));
+                    //set title with style bold
+                    title: Text(titles[index],
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(subtitles[index]),
+                    leading: Image.asset(
+                      iconPesananSelesai,
+                      width: 50,
+                      height: 50,
+                    ),
+                  ));
             }));
   }
 }
