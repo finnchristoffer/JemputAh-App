@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
+import 'package:jemputah_app/screens/base_screen.dart';
 import './signup_screen.dart';
 import 'package:jemputah_app/constants/image.dart';
 
@@ -109,7 +110,14 @@ class InitState extends State<LoginScreen> {
             ),
             GestureDetector(
               onTap: () => {
-                /* onClick code nanti disini */
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) {
+                      return const BaseScreen();
+                    },
+                  ),
+                ),
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 30, right: 30, top: 60),
