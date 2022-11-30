@@ -110,14 +110,8 @@ class InitState extends State<LoginScreen> {
             ),
             GestureDetector(
               onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) {
-                      return const BaseScreen();
-                    },
-                  ),
-                ),
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const BaseScreen()))
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 30, right: 30, top: 60),
