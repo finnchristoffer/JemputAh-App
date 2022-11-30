@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
 
@@ -403,7 +404,16 @@ class _JadwalJemput extends StatelessWidget {
                     minLeadingWidth: 64,
                     dense: true,
                     horizontalTitleGap: 8.5,
-                    onTap: null,
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) {
+                            return const DetailPenjemputanScreen();
+                          },
+                        ),
+                      ),
+                    },
                   ),
                 ),
               );
