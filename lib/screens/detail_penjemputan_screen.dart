@@ -20,8 +20,7 @@ class InitState extends State<DetailPenjemputanScreen> {
 
   String _alamatPenjemputan = 'Jalan Lengkong Besar No.47';
   String _waktuPenjemputan = '07:00 - 08.00';
-  String _namaPertamaUser = 'Adit';
-  String _namaKeduaUser = 'Dudung';
+  String _namaUser = 'Adit Dudung';
   String _noTelpUser = '+6281237788';
 
   @override
@@ -52,29 +51,14 @@ class InitState extends State<DetailPenjemputanScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      width: 120,
-                      margin: const EdgeInsets.only(top: 10, left: 24),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '$_namaPertamaUser',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      width: 120,
-                      margin: const EdgeInsets.only(left: 24, bottom: 10),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '$_namaKeduaUser',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+                Container(
+                  width: 120,
+                  margin: const EdgeInsets.only(top: 10, left: 24, bottom: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '$_namaUser',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10, right: 24, bottom: 10),
@@ -402,29 +386,6 @@ class InitState extends State<DetailPenjemputanScreen> {
                         fontSize: 18, fontWeight: FontWeight.bold)),
               ),
             ],
-          ),
-          GestureDetector(
-            onTap: () => {},
-            child: Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, top: 10, bottom: 30),
-              alignment: Alignment.center,
-              height: 42,
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(62, 75, 42, 1),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              child: const Text(
-                'Pesanan Selesai',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
           ),
         ]),
       ),
