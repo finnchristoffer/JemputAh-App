@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/constants/icons.dart';
+import 'package:jemputah_app/components/dl_alert.dart';
 
 void main() => runApp(const Tukar());
 
@@ -100,64 +101,78 @@ class TukarPage extends StatelessWidget {
                 //change gridview background color
 
                 itemBuilder: (ctx, i) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      side: BorderSide(
-                        color: Colors.black,
+                  return GestureDetector(
+                    onTap: () {
+                      List<String> alertTitles = <String>["Ok"];
+                      DLAlert(
+                          cancelTitle: 'Cancel',
+                          alertTitle: 'Alert Title',
+                          alertDetailMessage: 'Alert Detail',
+                          alertActionTitles: alertTitles,
+                          onAlertAction: (int selectedActionIndex) {
+                            print(
+                                '${alertTitles[selectedActionIndex]} action performed');
+                          }).show(context);
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        //make border
-                      ),
-                      margin: EdgeInsets.all(5),
-                      padding: EdgeInsets.all(5),
-                      child: Stack(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            // mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Image.asset(
-                                  images[i],
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, top: 5),
-                                child: Text(
-                                  titles[i],
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          //make border
+                        ),
+                        margin: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(5),
+                        child: Stack(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              // mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Image.asset(
+                                    images[i],
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  subtitles[i],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(bottom: 5, top: 5),
+                                  child: Text(
+                                    titles[i],
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    subtitles[i],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  points[i].toString() + " Koin",
+                                  textAlign: TextAlign.right,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.normal,
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 15,
                                   ),
                                 ),
-                              ),
-                              Text(
-                                points[i].toString() + " Koin",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
