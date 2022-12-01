@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "207546045956",
+    "project_id": "jemputah-database",
+    "storage_bucket": "jemputah-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207546045956:android:9b33df994c09b389d00751",
+        "android_client_info": {
+          "package_name": "com.example.jemputah_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207546045956-cu0no32grqj0doaiuivutkkbsd0mk3ld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbXczYKaZuSxRfRCWK34YU5op5so0BNDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207546045956-cu0no32grqj0doaiuivutkkbsd0mk3ld.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "207546045956-4opnjtn7bdi9bhr1ofsvr40c183ue6gn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jemputahApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   quantity_input: ^1.0.2
   carousel_slider: ^4.0.0
+  firebase_core: ^2.3.0
+  cloud_firestore: ^4.1.0
 
 dev_dependencies:
   flutter_test:
