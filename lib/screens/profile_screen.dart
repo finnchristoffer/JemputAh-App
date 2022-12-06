@@ -105,15 +105,6 @@ class _ProfilScreenState extends State<ProfilScreen> {
   var phoneNum = "+628123456789";
   var email = "aditdudung88@gmail.com";
 
-  void getPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (BuildContext ctx) => TransaksiScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
