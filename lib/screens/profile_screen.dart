@@ -8,7 +8,9 @@ import 'package:jemputah_app/screens/address_list_screen.dart';
 import 'package:jemputah_app/screens/change_password_screen.dart';
 import 'package:jemputah_app/screens/contact_us_screen.dart';
 import 'package:jemputah_app/screens/edit_profile_screen.dart';
+import 'package:jemputah_app/screens/login_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({Key? key}) : super(key: key);
@@ -21,8 +23,9 @@ class _ProfileCard extends StatelessWidget {
   final String name;
   final Widget icon;
   final ontap;
+  final bool isLogOut;
 
-  const _ProfileCard(this.name, this.icon, this.ontap);
+  const _ProfileCard(this.name, this.icon, this.ontap, this.isLogOut);
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +75,20 @@ class _ProfileCard extends StatelessWidget {
             color: AppColors.black,
           ),
         ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext ctx) => ontap,
-          ),
-        ),
+        onTap: isLogOut
+            ? () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed Out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                });
+              }
+            : () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext ctx) => ontap,
+                  ),
+                ),
       ),
     );
   }
@@ -94,7 +105,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   var phoneNum = "+628123456789";
   var email = "aditdudung88@gmail.com";
 
-  void getAddressList() {
+  void getPage() {
     Navigator.push(
       context,
       MaterialPageRoute<void>(
@@ -206,41 +217,41 @@ class _ProfilScreenState extends State<ProfilScreen> {
             ),
           ),
           _ProfileCard(
-            "Daftar Alamat",
-            Icon(
-              Icons.location_on,
-              size: 30,
-              color: AppColors.black,
-            ),
-            const AddressListScreen(),
-          ),
+              "Daftar Alamat",
+              Icon(
+                Icons.location_on,
+                size: 30,
+                color: AppColors.black,
+              ),
+              const AddressListScreen(),
+              false),
           _ProfileCard(
-            "Kontak Kami",
-            Image.asset(
-              iconTelpon,
-              width: 30,
-              height: 30,
-            ),
-            const ContactUsPage(),
-          ),
+              "Kontak Kami",
+              Image.asset(
+                iconTelpon,
+                width: 30,
+                height: 30,
+              ),
+              const ContactUsPage(),
+              false),
           _ProfileCard(
-            "Ubah Password",
-            Icon(
-              Icons.lock,
-              size: 30,
-              color: AppColors.black,
-            ),
-            const ChangePasswordPage(),
-          ),
+              "Ubah Password",
+              Icon(
+                Icons.lock,
+                size: 30,
+                color: AppColors.black,
+              ),
+              const ChangePasswordPage(),
+              false),
           _ProfileCard(
-            "Keluar",
-            Icon(
-              Icons.exit_to_app,
-              size: 30,
-              color: AppColors.black,
-            ),
-            null,
-          ),
+              "Keluar",
+              Icon(
+                Icons.exit_to_app,
+                size: 30,
+                color: AppColors.black,
+              ),
+              const LoginScreen(),
+              true),
         ],
       ),
     );

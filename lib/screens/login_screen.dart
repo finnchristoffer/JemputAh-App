@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import './signup_screen.dart';
 import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +14,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class InitState extends State<LoginScreen> {
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return initWidget();
@@ -41,64 +46,39 @@ class InitState extends State<LoginScreen> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextField(
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.email,
-                    color: AppColors.mainGreen,
-                  ),
-                  hintText: 'Email',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                height: 50,
+                margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableTextField(
+                    "Email", Icons.email, false, _emailTextController)),
             Container(
-              margin: const EdgeInsets.only(left: 30, right: 30, top: 20),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextField(
-                obscureText: true,
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.vpn_key,
-                    color: AppColors.mainGreen,
-                  ),
-                  hintText: 'Kata Sandi',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                height: 50,
+                margin: const EdgeInsets.only(left: 30, right: 30, top: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableTextField("Kata Sandi", Icons.vpn_key, true,
+                    _passwordTextController)),
             Container(
               margin: const EdgeInsets.only(top: 20, right: 20),
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -108,53 +88,41 @@ class InitState extends State<LoginScreen> {
                 onTap: () => {},
               ),
             ),
-            GestureDetector(
-              onTap: () => {
+            signInSignUpButton(context, true, () {
+              FirebaseAuth.instance
+                  .signInWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                  .then((value) {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const BaseScreen()))
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: 30, right: 30, top: 60),
-                alignment: Alignment.center,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color.fromRGBO(62, 75, 42, 1),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 50,
-                        color: Color(0xffEEEEEE)),
-                  ],
-                ),
-                child: const Text(
-                  'MASUK',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Text('Belum punya akun? '),
-                GestureDetector(
-                  onTap: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpScreen()))
-                  },
-                  child: const Text(
-                    'Daftar di sini',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ]),
-            ),
+                    MaterialPageRoute(builder: (context) => BaseScreen()));
+              }).onError((error, stackTrace) {
+                print("Error ${error.toString()}");
+              });
+            }),
+            signUpOption()
           ],
         ),
       ),
+    );
+  }
+
+  Container signUpOption() {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Text('Belum punya akun? '),
+        GestureDetector(
+          onTap: () => {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignUpScreen()))
+          },
+          child: const Text(
+            'Daftar di sini',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ]),
     );
   }
 }
