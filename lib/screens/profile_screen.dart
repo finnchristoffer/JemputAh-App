@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
-import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/screens/address_list_screen.dart';
 import 'package:jemputah_app/screens/change_password_screen.dart';
 import 'package:jemputah_app/screens/contact_us_screen.dart';
@@ -114,7 +114,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
           "Profil",
         ),
         backgroundColor: AppColors.mainGreen,
-        centerTitle: false,
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [
