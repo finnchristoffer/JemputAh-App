@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
-import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
@@ -46,21 +46,15 @@ class _LeadAppBar extends StatelessWidget {
     return Wrap(
       children: [
         Container(
+          margin: const EdgeInsets.only(top: 5),
           width: 200,
-          margin: const EdgeInsets.only(
-            left: 14,
-            top: 5,
-          ),
           child: Image.asset(
             homeLogo,
-            fit: BoxFit.fill,
-            scale: 0.1,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(
-            top: 20,
-            left: 14,
+            left: 25,
           ),
           child: Text(
             "Hai, $username",

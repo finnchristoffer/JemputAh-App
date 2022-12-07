@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
-import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/images.dart';
 
 class SettingUI extends StatelessWidget {
   const SettingUI({super.key});
