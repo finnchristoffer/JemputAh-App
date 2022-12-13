@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/firebase_options.dart';
-import 'package:jemputah_app/screens/base_screen.dart';
-import 'package:jemputah_app/test_firestore.dart';
 import 'screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
