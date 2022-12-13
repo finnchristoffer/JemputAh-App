@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import './signup_screen.dart';
-import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -97,7 +97,21 @@ class InitState extends State<LoginScreen> {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => BaseScreen()));
               }).onError((error, stackTrace) {
-                print("Error ${error.toString()}");
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          "Error",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(
+                          error.toString(),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    });
               });
             }),
             signUpOption()

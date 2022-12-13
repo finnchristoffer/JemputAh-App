@@ -135,7 +135,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
           "Profil",
         ),
         backgroundColor: AppColors.mainGreen,
-        centerTitle: false,
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: [

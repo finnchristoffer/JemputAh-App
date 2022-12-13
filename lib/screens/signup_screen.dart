@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
-import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import './login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,6 +15,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class InitState extends State<SignUpScreen> {
+  final firestore = FirebaseFirestore.instance;
   TextEditingController _nameTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _phoneNumberTextController = TextEditingController();
@@ -112,17 +114,62 @@ class InitState extends State<SignUpScreen> {
                 child: reusableTextField("Kata Sandi", Icons.vpn_key, true,
                     _passwordTextController)),
             signInSignUpButton(context, false, () {
-              FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text)
-                  .then((value) {
-                print("Created New Account");
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => BaseScreen()));
-              }).onError((error, stackTrace) {
-                print("Error ${error.toString()}");
-              });
+              final nameText = _nameTextController.value.text;
+              final phoneNumberText = _phoneNumberTextController.value.text;
+              if (nameText.isEmpty || phoneNumberText.isEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AlertDialog(
+                        title: Text(
+                          "Error",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        content: Text(
+                          "Tolong isi kolom yang masih kosong terlebih dahulu.",
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    });
+              } else {
+                FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTextController.text)
+                    .then((value) {
+                  firestore
+                      .collection("user")
+                      .doc(FirebaseAuth.instance.currentUser?.uid)
+                      .set({
+                    "email_user": _emailTextController.text,
+                    "jml_berat": 0,
+                    "jml_jemput": 0,
+                    "jml_koin_user": 0,
+                    "name_user": _nameTextController.text,
+                    "phone_num_user": _phoneNumberTextController.text,
+                    "profile_pic_user": '',
+                  });
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => BaseScreen()));
+                }).onError((error, stackTrace) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text(
+                            "Error",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: Text(
+                            error.toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      });
+                });
+              }
             }),
             Container(
               margin: const EdgeInsets.only(top: 10),
