@@ -1,9 +1,11 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
-import 'package:jemputah_app/constants/images.dart';
+import 'package:jemputah_app/constants/image.dart';
+import 'package:jemputah_app/constants/variable.dart';
 import 'package:jemputah_app/screens/address_list_screen.dart';
 import 'package:jemputah_app/screens/change_password_screen.dart';
 import 'package:jemputah_app/screens/contact_us_screen.dart';
@@ -11,6 +13,8 @@ import 'package:jemputah_app/screens/edit_profile_screen.dart';
 import 'package:jemputah_app/screens/login_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jemputah_app/API/FetchData.dart';
+import 'package:jemputah_app/models/users.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({Key? key}) : super(key: key);
@@ -101,9 +105,26 @@ class GetScreen {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
-  var username = "Adit Dudung";
-  var phoneNum = "+628123456789";
-  var email = "aditdudung88@gmail.com";
+  var username = "Loading..";
+  var phoneNum = "Loading..";
+  var email = "Loading..";
+
+  void set() {
+    var user = FetchData().fetchData("user", uid);
+    user.then((value) {
+      setState(() {
+        username = value["name_user"];
+        phoneNum = value["phone_num_user"];
+        email = value["email_user"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    set();
+  }
 
   @override
   Widget build(BuildContext context) {
