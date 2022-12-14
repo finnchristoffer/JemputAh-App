@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jemputah_app/constants/variable.dart';
 import 'package:jemputah_app/models/address.dart';
 import 'package:jemputah_app/models/jemput.dart';
 import 'package:jemputah_app/models/sampah.dart';
@@ -10,7 +11,39 @@ import 'package:firebase_auth/firebase_auth.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class FetchData {
-  Future<Map<String, dynamic>> fetchData(
+  Future<List<Map<String, dynamic>>> fetchListData(
+      String collection, String? id) async {
+    List<Map<String, dynamic>> dataList = [];
+    var query = await FirebaseFirestore.instance
+        .collection(collection)
+        .where("id_user", isEqualTo: id)
+        .get();
+    List<DocumentSnapshot> documents = query.docs;
+    for (DocumentSnapshot snapshot in documents) {
+      Map<String, dynamic> data = {};
+      switch (collection) {
+        case "address":
+          {
+            data = Address().snap(snapshot);
+          }
+          break;
+        case "user_transaction":
+          {
+            data = UserTransaction().snap(snapshot);
+          }
+          break;
+        case "jemput":
+          {
+            data = Jemput().snap(snapshot);
+          }
+          break;
+      }
+      dataList.add(data);
+    }
+    return dataList;
+  }
+
+  Future<Map<String, dynamic>> fetchMapData(
       String collection, String? document) async {
     Map<String, dynamic> data = {};
     var ref = FirebaseFirestore.instance.collection(collection).doc(document);

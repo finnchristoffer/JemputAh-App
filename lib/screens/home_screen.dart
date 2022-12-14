@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/constants/color.dart';
@@ -8,6 +6,13 @@ import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
+import '../API/FetchData.dart';
+import '../constants/variable.dart';
+import 'package:jemputah_app/extensions/date_time_converter.dart';
+
+// DateTimeConverter dateTimeConverter = DateTimeConverter();
+// var n = DateTime.now().toString();
+// String tgl = dateTimeConverter.format(n);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,7 +44,11 @@ class _HistoryTransactionButton extends StatelessWidget {
 }
 
 class _LeadAppBar extends StatelessWidget {
-  String username = "a";
+  final String username;
+
+  _LeadAppBar(
+    this.username,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +80,15 @@ class _LeadAppBar extends StatelessWidget {
 }
 
 class _JemputBox extends StatelessWidget {
-  int berat = 10;
-  int jmlJemput = 5;
-  int koin = 1500;
+  int berat;
+  int jmlJemput;
+  int koin;
+
+  _JemputBox(
+    this.koin,
+    this.jmlJemput,
+    this.berat,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -297,6 +312,12 @@ class _JadwalJemput extends StatelessWidget {
     }
   ];
 
+  List<Map<String, dynamic>> data;
+
+  _JadwalJemput(
+    this.data,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -425,6 +446,41 @@ class _JadwalJemput extends StatelessWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var username = "Account";
+  var jml_koin_user = 0;
+  var jml_jemput = 0;
+  var jml_berat = 0;
+  List<Map<String, dynamic>> data = [];
+
+  void setJemput() async {
+    var penjemputan = FetchData().fetchListData("jemput", uid);
+    penjemputan.then((value) {
+      setState(() {
+        data = value;
+        print(data);
+      });
+    });
+  }
+
+  void set() {
+    var user = FetchData().fetchMapData("user", uid);
+    user.then((value) {
+      setState(() {
+        username = value["name_user"];
+        jml_koin_user = value["jml_koin_user"];
+        jml_jemput = value["jml_jemput"];
+        jml_berat = value["jml_berat"];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    set();
+    setJemput();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -437,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_LeadAppBar()],
+          children: [_LeadAppBar(username)],
         ),
         actions: [
           _HistoryTransactionButton(),
@@ -449,9 +505,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 children: [
-                  _JemputBox(),
+                  _JemputBox(jml_koin_user, jml_jemput, jml_berat),
                   _Carousel(),
-                  _JadwalJemput(),
+                  _JadwalJemput(data),
                 ],
               )
             ],
