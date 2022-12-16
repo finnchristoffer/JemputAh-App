@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
 
 import '../API/FetchData.dart';
 
@@ -33,38 +34,7 @@ class InitState extends State<DetailPenjemputanScreen> {
   String _noTelpDriver = 'Loading...';
   String _idSampah = '';
   String _idDriver = '';
-
-  String timeCodeConverter(int timecode) {
-    var time = "";
-    switch (timecode) {
-      case 1:
-        {
-          time = "08:00 - 10:00";
-        }
-        break;
-      case 2:
-        {
-          time = "10:00 - 12:00";
-        }
-        break;
-      case 3:
-        {
-          time = "12:00 - 14:00";
-        }
-        break;
-      case 4:
-        {
-          time = "14:00 - 16:00";
-        }
-        break;
-      case 5:
-        {
-          time = "16:00 - 18:00";
-        }
-        break;
-    }
-    return time;
-  }
+  TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   void setJemput() {
     var jemput = FetchData().fetchMapData('jemput', id_jemput);
@@ -76,7 +46,8 @@ class InitState extends State<DetailPenjemputanScreen> {
         _alamatPenjemputan = value['address'];
         _tanggalPenjemputan = value['date'];
         _idDriver = value['id_driver'];
-        _waktuPenjemputan = timeCodeConverter(value['time_code']);
+        _waktuPenjemputan =
+            timeCodeConverter.timeCodeConverter(value['time_code']);
         setSampah();
         setDriver();
       });

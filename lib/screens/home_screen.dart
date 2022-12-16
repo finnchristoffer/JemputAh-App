@@ -4,6 +4,7 @@ import 'package:jemputah_app/API/FetchDataJemput.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/images.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
@@ -306,37 +307,7 @@ class _JadwalJemput extends StatelessWidget {
     this.data,
   );
 
-  String timeCodeConverter(int index) {
-    var time = "";
-    switch (data[index]["time_code"]) {
-      case 1:
-        {
-          time = "08:00 - 10:00";
-        }
-        break;
-      case 2:
-        {
-          time = "10:00 - 12:00";
-        }
-        break;
-      case 3:
-        {
-          time = "12:00 - 14:00";
-        }
-        break;
-      case 4:
-        {
-          time = "14:00 - 16:00";
-        }
-        break;
-      case 5:
-        {
-          time = "16:00 - 18:00";
-        }
-        break;
-    }
-    return time;
-  }
+TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   @override
   Widget build(BuildContext context) {
@@ -399,7 +370,7 @@ class _JadwalJemput extends StatelessWidget {
                             bottom: 10,
                           ),
                           child: Text(
-                            timeCodeConverter(index),
+                            timeCodeConverter.timeCodeConverter(data[index]["time_code"]),
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 14,
