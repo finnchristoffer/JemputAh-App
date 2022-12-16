@@ -7,7 +7,6 @@ class Sampah {
       "berat2": snapshot['berat2'],
       "berat3": snapshot['berat3'],
       "berat4": snapshot['berat4'],
-      "berat5": snapshot['berat5'],
     };
     return data;
   }
