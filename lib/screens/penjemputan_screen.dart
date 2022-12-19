@@ -17,7 +17,7 @@ class PenjemputanScreen extends StatefulWidget {
 class InitState extends State<PenjemputanScreen> {
   var db = FirebaseFirestore.instance;
   var id_sampah = '';
-  TimeCodeConverter timeCodeConverter = TimeCodeConverter();
+  TimeConverter timeConverter = TimeConverter();
 
   DateTimeConverter dateTimeConverter = DateTimeConverter();
   var dateNow = DateTime.now().toString();
@@ -73,7 +73,7 @@ class InitState extends State<PenjemputanScreen> {
       "id_driver": 'dummy_driver',
       "id_sampah": id_sampah,
       "id_user": uid,
-      "time_code": timeCodeConverter.format(waktuPengambilan),
+      "time_code": timeConverter.format(waktuPengambilan),
       "total_berat": _totalBerat,
       "total_koin_driver": 10000,
       "total_koin_user": _totalPendapatan,

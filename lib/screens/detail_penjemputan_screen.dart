@@ -1,27 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
+
+import '../API/FetchData.dart';
 
 class DetailPenjemputanScreen extends StatefulWidget {
-  const DetailPenjemputanScreen({super.key});
+  final String id_jemput;
+
+  const DetailPenjemputanScreen(this.id_jemput, {super.key});
 
   @override
-  State<StatefulWidget> createState() => InitState();
+  State<StatefulWidget> createState() => InitState(id_jemput);
 }
 
 class InitState extends State<DetailPenjemputanScreen> {
-  double _beratSampahPlastik = 2.5;
-  double _beratSampahKarton = 5.0;
-  double _beratSampahKaca = 0.0;
-  double _beratSampahKaleng = 1.0;
+  String id_jemput;
 
-  double _totalPendapatan = 10000;
-  double _totalBerat = 8.5;
+  InitState(this.id_jemput);
 
-  String _alamatPenjemputan = 'Jalan Lengkong Besar No.47';
-  String _waktuPenjemputan = '07:00 - 08.00';
-  String _namaUser = 'Adit Dudung';
-  String _noTelpUser = '+6281237788';
+  dynamic _beratSampahPlastik = 0;
+  dynamic _beratSampahKarton = 0;
+  dynamic _beratSampahKaca = 0;
+  dynamic _beratSampahKaleng = 0;
+
+  dynamic _totalPendapatan = 0;
+  dynamic _totalBerat = 0;
+
+  String _alamatPenjemputan = 'Loading...';
+  String _tanggalPenjemputan = 'Loading...';
+  String _waktuPenjemputan = 'Loading...';
+  String _namaDriver = 'Loading...';
+  String _noTelpDriver = 'Loading...';
+  String _idSampah = '';
+  String _idDriver = '';
+  TimeCodeConverter timeCodeConverter = TimeCodeConverter();
+
+  void setJemput() {
+    var jemput = FetchData().fetchMapData('jemput', id_jemput);
+    jemput.then((value) {
+      setState(() {
+        _totalPendapatan = value['total_koin_user'];
+        _totalBerat = value['total_berat'];
+        _idSampah = value['id_sampah'];
+        _alamatPenjemputan = value['address'];
+        _tanggalPenjemputan = value['date'];
+        _idDriver = value['id_driver'];
+        _waktuPenjemputan =
+            timeCodeConverter.timeCodeConverter(value['time_code']);
+        setSampah();
+        setDriver();
+      });
+    });
+  }
+
+  void setSampah() {
+    var sampah = FetchData().fetchMapData('sampah', _idSampah);
+    sampah.then((value) {
+      setState(() {
+        _beratSampahPlastik = value['berat1'].toDouble();
+        _beratSampahKarton = value['berat2'].toDouble();
+        _beratSampahKaca = value['berat3'].toDouble();
+        _beratSampahKaleng = value['berat4'].toDouble();
+      });
+    });
+  }
+
+  void setDriver() {
+    var driver = FetchData().fetchMapData('driver', _idDriver);
+    driver.then((value) {
+      setState(() {
+        _namaDriver = value['name_driver'];
+        _noTelpDriver = value['phone_num_driver'];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    setJemput();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +115,13 @@ class InitState extends State<DetailPenjemputanScreen> {
                   margin: const EdgeInsets.only(top: 10, left: 24, bottom: 10),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '$_namaUser',
+                    _namaDriver,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10, right: 24, bottom: 10),
-                  child: Text(("$_noTelpUser"),
+                  child: Text((_noTelpDriver),
                       style: const TextStyle(fontSize: 18)),
                 ),
               ],
@@ -288,7 +347,7 @@ class InitState extends State<DetailPenjemputanScreen> {
                 SizedBox(
                     width: 260,
                     child: Text(
-                      '$_alamatPenjemputan',
+                      _alamatPenjemputan,
                       style: TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 15),
                     )),
@@ -325,7 +384,7 @@ class InitState extends State<DetailPenjemputanScreen> {
                 SizedBox(
                     width: 260,
                     child: Text(
-                      '$_alamatPenjemputan',
+                      _tanggalPenjemputan,
                       style: TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 15),
                     )),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:jemputah_app/API/FetchDataJemput.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/images.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
@@ -299,24 +301,13 @@ class CarouselView extends StatelessWidget {
 }
 
 class _JadwalJemput extends StatelessWidget {
-  final penjemputan = [
-    {
-      "tgl": "Jumat, 23 September 2022",
-      "jam": "08:00 - 10:00",
-      "alamat": "Jalan Lengkong Besar No. 47",
-    },
-    {
-      "tgl": "Sabtu, 24 September 2022",
-      "jam": "08:00 - 10:00",
-      "alamat": "Jalan Lengkong Kecil No. 47",
-    }
-  ];
-
   List<Map<String, dynamic>> data;
 
   _JadwalJemput(
     this.data,
   );
+
+TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +331,7 @@ class _JadwalJemput extends StatelessWidget {
           ),
           height: 250,
           child: ListView.separated(
-            itemCount: penjemputan.length,
+            itemCount: data.length,
             itemBuilder: (BuildContext context, int index) {
               return SizedBox(
                 height: 113,
@@ -363,7 +354,7 @@ class _JadwalJemput extends StatelessWidget {
                         bottom: 10,
                       ),
                       child: Text(
-                        penjemputan[index]["tgl"] as String,
+                        data[index]["date"],
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -379,7 +370,7 @@ class _JadwalJemput extends StatelessWidget {
                             bottom: 10,
                           ),
                           child: Text(
-                            penjemputan[index]["jam"] as String,
+                            timeCodeConverter.timeCodeConverter(data[index]["time_code"]),
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 14,
@@ -387,7 +378,7 @@ class _JadwalJemput extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          penjemputan[index]["alamat"] as String,
+                          data[index]["address"],
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontSize: 14,
@@ -424,7 +415,8 @@ class _JadwalJemput extends StatelessWidget {
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) {
-                            return const DetailPenjemputanScreen();
+                            return DetailPenjemputanScreen(
+                                data[index]["id_jemput"]);
                           },
                         ),
                       ),
@@ -452,12 +444,11 @@ class _HomeScreenState extends State<HomeScreen> {
   var jml_berat = 0;
   List<Map<String, dynamic>> data = [];
 
-  void setJemput() async {
-    var penjemputan = FetchData().fetchListData("jemput", uid);
+  void setJemput() {
+    var penjemputan = FetchDataJemput().fetchListJemputNotDone(uid);
     penjemputan.then((value) {
       setState(() {
         data = value;
-        print(data);
       });
     });
   }
@@ -478,6 +469,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     set();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
     setJemput();
   }
 

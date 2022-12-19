@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jemputah_app/constants/variable.dart';
 import 'package:jemputah_app/models/address.dart';
+import 'package:jemputah_app/models/driver.dart';
 import 'package:jemputah_app/models/jemput.dart';
 import 'package:jemputah_app/models/sampah.dart';
 import 'package:jemputah_app/models/shop.dart';
@@ -32,15 +32,10 @@ class FetchData {
             data = UserTransaction().snap(snapshot);
           }
           break;
-        case "jemput":
-          {
-            data = Jemput().snap(snapshot);
-          }
-          break;
       }
       dataList.add(data);
     }
-    return dataList;
+    return dataList.toList();
   }
 
   Future<Map<String, dynamic>> fetchMapData(
@@ -77,6 +72,11 @@ class FetchData {
       case "jemput":
         {
           data = Jemput().snap(snapshot);
+        }
+        break;
+      case "driver":
+        {
+          data = Driver().snap(snapshot);
         }
         break;
     }
