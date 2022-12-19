@@ -51,12 +51,14 @@ class PesananPage extends State<Pesanan> {
                 Image.asset(
                   pesanan_kosong,
                   width: 250,
-                  height: 250,
+                  height: 280,
                   fit: BoxFit.fill,
                 ),
-                const Text(
+                Text(
                   'Ups, Anda belum melakukan \npemesanan',
                   textAlign: TextAlign.center,
+                  style:
+                      TextStyle(fontSize: 20, color: AppColors.hintTextColor),
                 ),
               ],
             ),
