@@ -14,3 +14,4 @@ const carousel1 = '$_pathImages/carousel1.png';
 const carousel2 = '$_pathImages/carousel2.png';
 const carousel3 = '$_pathImages/carousel3.png';
 const profilePicture = '$_pathImages/profile_picture.png';
+const pesananKosong = '$_pathImages/pesanan_kosong.png';
