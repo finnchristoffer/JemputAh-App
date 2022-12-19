@@ -14,5 +14,5 @@ const carousel1 = '$_pathImages/carousel1.png';
 const carousel2 = '$_pathImages/carousel2.png';
 const carousel3 = '$_pathImages/carousel3.png';
 const profilePicture = '$_pathImages/profile_picture.png';
-const pesananKosong = '$_pathImages/pesanan_kosong.png';
+const pesanan_kosong = '$_pathImages/pesanan_kosong.png';
 const historyEmpty = '$_pathImages/transaksi_kosong.png';
