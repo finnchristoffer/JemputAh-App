@@ -28,6 +28,31 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
   );
 }
 
+TextField reusableAddressTextField(String text, IconData icon, bool isMultiLine,
+    TextEditingController controller) {
+  return TextField(
+    controller: controller,
+    cursorColor: Colors.white,
+    style: TextStyle(color: Colors.black.withOpacity(0.9)),
+    decoration: InputDecoration(
+      prefixIcon: Icon(
+        icon,
+        color: AppColors.mainGreen,
+      ),
+      contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+      labelText: text,
+      labelStyle: TextStyle(color: AppColors.hintTextColor),
+      enabledBorder: InputBorder.none,
+      focusedBorder: InputBorder.none,
+    ),
+    keyboardType:
+        isMultiLine ? TextInputType.multiline : TextInputType.emailAddress,
+    minLines: isMultiLine ? 3 : null,
+    maxLines: isMultiLine ? 3 : null,
+  );
+}
+
 Container signInSignUpButton(
     BuildContext context, bool isLogin, Function onTap) {
   return Container(

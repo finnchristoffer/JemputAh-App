@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jemputah_app/screens/base_screen.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
+import 'package:jemputah_app/extensions/date_time_converter.dart';
+import '../constants/variable.dart';
 
 class PenjemputanScreen extends StatefulWidget {
   const PenjemputanScreen({super.key});
@@ -10,12 +15,20 @@ class PenjemputanScreen extends StatefulWidget {
 }
 
 class InitState extends State<PenjemputanScreen> {
+  var db = FirebaseFirestore.instance;
+  var id_sampah = '';
+  TimeConverter timeConverter = TimeConverter();
+
+  DateTimeConverter dateTimeConverter = DateTimeConverter();
+  var dateNow = DateTime.now().toString();
+
   double _beratSampahPlastik = 0;
   double _beratSampahKarton = 0;
   double _beratSampahKaca = 0;
   double _beratSampahKaleng = 0;
 
   double _totalPendapatan = 0;
+  double _totalBerat = 0;
 
   List weightOfItems = [0.0, 0.0, 0.0, 0.0];
 
@@ -26,11 +39,49 @@ class InitState extends State<PenjemputanScreen> {
         _beratSampahKaleng * 4000);
   }
 
+  void _calculateTotalWeight() {
+    _totalBerat = _beratSampahPlastik +
+        _beratSampahKarton +
+        _beratSampahKaca +
+        _beratSampahKaleng;
+  }
+
   void setWeight() {
     _beratSampahPlastik = weightOfItems[0];
     _beratSampahKarton = weightOfItems[1];
     _beratSampahKaca = weightOfItems[2];
     _beratSampahKaleng = weightOfItems[3];
+  }
+
+  void setIdSampah(value) {
+    id_sampah = value;
+  }
+
+  Future<void> aturPenjemputan() async {
+    final sampah = <String, dynamic>{
+      "berat1": _beratSampahPlastik,
+      "berat2": _beratSampahKarton,
+      "berat3": _beratSampahKaca,
+      "berat4": _beratSampahKaleng,
+    };
+    DocumentReference docRef = await db.collection("sampah").add(sampah);
+    id_sampah = docRef.id;
+    final jemput = <String, dynamic>{
+      "address": lokasiPengambilan,
+      "date": dateTimeConverter.format(dateNow),
+      "done": false,
+      "id_driver": 'dummy_driver',
+      "id_sampah": id_sampah,
+      "id_user": uid,
+      "time_code": timeConverter.format(waktuPengambilan),
+      "total_berat": _totalBerat,
+      "total_koin_driver": 10000,
+      "total_koin_user": _totalPendapatan,
+    };
+    db.collection("jemput").add(jemput);
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => BaseScreen()));
   }
 
   Widget _incrementWeight(int index) {
@@ -41,6 +92,7 @@ class InitState extends State<PenjemputanScreen> {
           weightOfItems[index] += 0.5;
           setWeight();
           _calculateCoin();
+          _calculateTotalWeight();
         });
       },
       heroTag: null,
@@ -62,11 +114,12 @@ class InitState extends State<PenjemputanScreen> {
             weightOfItems[index] -= 0.5;
             setWeight();
             _calculateCoin();
+            _calculateTotalWeight();
           });
         }
       },
-      child: const Icon(Icons.remove),
       heroTag: null,
+      child: const Icon(Icons.remove),
     );
   }
 
@@ -79,18 +132,13 @@ class InitState extends State<PenjemputanScreen> {
     'Jalan Soekarno Hatta'
   ];
 
-  String waktuPengambilan = '07:00 - 08.00';
+  String waktuPengambilan = '08:00 - 10.00';
   final waktuPengambilanItems = [
-    '07:00 - 08.00',
-    '08:00 - 09.00',
-    '09:00 - 10.00',
-    '10:00 - 11.00',
-    '11:00 - 12.00',
-    '12:00 - 13.00',
-    '13:00 - 14.00',
-    '14:00 - 15.00',
-    '15:00 - 16.00',
-    '16:00 - 17.00',
+    '08:00 - 10.00',
+    '10:00 - 12.00',
+    '12:00 - 14.00',
+    '14:00 - 16.00',
+    '16:00 - 18.00',
   ];
 
   @override
@@ -456,9 +504,30 @@ class InitState extends State<PenjemputanScreen> {
             ],
           ),
           GestureDetector(
-              onTap: () => {
-                    /* onClick code nanti disini */
-                  },
+              onTap: () {
+                if (_beratSampahPlastik == 0 &&
+                    _beratSampahKarton == 0 &&
+                    _beratSampahKaca == 0 &&
+                    _beratSampahKaleng == 0) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                          title: Text(
+                            "Error",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: Text(
+                            "Mohon isi terlebih dahulu berat sampah daur ulang.",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      });
+                } else {
+                  aturPenjemputan();
+                }
+              },
               child: Container(
                 margin: const EdgeInsets.only(left: 24, right: 24, top: 20),
                 height: 42,
