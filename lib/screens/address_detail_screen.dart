@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
+import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../constants/variable.dart';
 
 class AddressUI extends StatelessWidget {
   const AddressUI({super.key});
@@ -22,6 +25,13 @@ class AddressDetailPage extends StatefulWidget {
 }
 
 class _AddressDetailState extends State<AddressDetailPage> {
+  var db = FirebaseFirestore.instance;
+  final firestore = FirebaseFirestore.instance;
+  TextEditingController _addressTextController = TextEditingController();
+  TextEditingController _districtTextController = TextEditingController();
+  TextEditingController _cityTextController = TextEditingController();
+  TextEditingController _postalCodeTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,39 +49,21 @@ class _AddressDetailState extends State<AddressDetailPage> {
               height: 25,
             ),
             Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              child: TextField(
-                keyboardType: TextInputType.multiline,
-                minLines: 3,
-                maxLines: 3,
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 35),
-                    child: Icon(
-                      Icons.home,
-                      color: AppColors.mainGreen,
-                    ),
-                  ),
-                  hintText: 'Alamat Lengkap',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                margin: const EdgeInsets.only(top: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField("Alamat Lengkap", Icons.home,
+                    true, _addressTextController)),
             Container(
               margin: const EdgeInsets.only(top: 5, left: 5),
               child: const Text(
@@ -80,95 +72,89 @@ class _AddressDetailState extends State<AddressDetailPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 30),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextField(
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.home_work,
-                    color: AppColors.mainGreen,
-                  ),
-                  hintText: 'Kecamatan',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                margin: const EdgeInsets.only(top: 35),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField("Kecamatan", Icons.home_work,
+                    false, _districtTextController)),
             Container(
-              margin: const EdgeInsets.only(top: 45),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextField(
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.location_city,
-                    color: AppColors.mainGreen,
-                  ),
-                  hintText: 'Kota',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField(
+                    "Kota", Icons.location_city, false, _cityTextController)),
             Container(
-              margin: const EdgeInsets.only(top: 45),
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              alignment: Alignment.center,
-              child: TextField(
-                cursorColor: AppColors.buttonBackground,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.numbers,
-                    color: AppColors.mainGreen,
-                  ),
-                  hintText: 'Kode Pos',
-                  hintStyle: TextStyle(color: AppColors.hintTextColor),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
                 ),
-              ),
-            ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField("Kode Pos", Icons.numbers,
+                    false, _postalCodeTextController)),
             GestureDetector(
-              onTap: () => {
-                /* onClick code nanti disini */
+              onTap: () {
+                final addressText = _addressTextController.value.text;
+                final districtText = _districtTextController.value.text;
+                final cityText = _cityTextController.value.text;
+                final postalCodeText = _postalCodeTextController.value.text;
+                if (addressText.isEmpty ||
+                    districtText.isEmpty ||
+                    cityText.isEmpty ||
+                    postalCodeText.isEmpty) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AlertDialog(
+                          title: Text(
+                            "Error",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: Text(
+                            "Tolong isi kolom yang masih kosong terlebih dahulu.",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      });
+                } else {
+                  final address = <String, dynamic>{
+                    "address": _addressTextController.text,
+                    "district": _districtTextController.text,
+                    "city": _cityTextController.text,
+                    "postal_code": _postalCodeTextController.text,
+                    "id_user": uid,
+                  };
+                  db.collection("address").add(address);
+                  Navigator.pop(context);
+                }
               },
               child: Container(
                 margin: const EdgeInsets.only(top: 70),

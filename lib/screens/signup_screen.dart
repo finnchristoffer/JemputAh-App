@@ -150,8 +150,10 @@ class InitState extends State<SignUpScreen> {
                     "phone_num_user": _phoneNumberTextController.text,
                     "profile_pic_user": '',
                   });
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => BaseScreen()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BaseScreen()));
                 }).onError((error, stackTrace) {
                   showDialog(
                       context: context,
