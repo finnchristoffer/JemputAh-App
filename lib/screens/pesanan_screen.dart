@@ -1,54 +1,96 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
+import 'package:jemputah_app/constants/images.dart';
+import 'package:jemputah_app/API/FetchDataJemput.dart';
+import 'package:jemputah_app/extensions/time_code_converter.dart';
+import '../constants/variable.dart';
+import 'package:jemputah_app/extensions/date_time_converter.dart';
 
-class Pesanan extends StatelessWidget {
+class Pesanan extends StatefulWidget {
   const Pesanan({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PesananPage(),
-    );
-  }
+  PesananPage createState() => PesananPage();
 }
 
-class PesananPage extends StatelessWidget {
-  PesananPage({super.key});
+class PesananPage extends State<Pesanan> {
+  List<Map<String, dynamic>> data = [];
 
-  final titles = ["Pesanan Selesai", "Pesanan Selesai", "Pesananan Selesai"];
-  final subtitles = [
-    "10:00 | 23 Sept 2022",
-    "11:00 | 23 Sept 2022",
-    "12:00 | 23 Sept 2022"
-  ];
+  void initState() {
+    super.initState();
+    setPesanan();
+  }
+
+  void setPesanan() {
+    var penjemputan = FetchDataJemput().fetchListJemputDone(uid);
+    penjemputan.then((value) {
+      setState(() {
+        data = value;
+      });
+    });
+  }
+
+  TimeCodeConverterHour timeCodeConverterHour = TimeCodeConverterHour();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColors.backgroundGreen,
-        appBar: AppBar(
-          //make background color black
-          backgroundColor: AppColors.mainGreen,
-          title: const Text('Pesanan'),
-          centerTitle: false,
-        ),
-        body: ListView.builder(
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-              return Card(
-                  color: AppColors.backgroundGreen,
-                  child: ListTile(
-                    //set title with style bold
-                    title: Text(titles[index],
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text(subtitles[index]),
-                    leading: Image.asset(
-                      iconPesananSelesai,
-                      width: 50,
-                      height: 50,
-                    ),
-                  ));
-            }));
+    if (data.isEmpty) {
+      return Scaffold(
+          backgroundColor: AppColors.backgroundGreen,
+          appBar: AppBar(
+            //make background color black
+            backgroundColor: AppColors.mainGreen,
+            title: const Text('Pesanan'),
+            centerTitle: false,
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  pesanan_kosong,
+                  width: 250,
+                  height: 250,
+                  fit: BoxFit.fill,
+                ),
+                const Text(
+                  'Ups, Anda belum melakukan \npemesanan',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ));
+    } else {
+      return Scaffold(
+          backgroundColor: AppColors.backgroundGreen,
+          appBar: AppBar(
+            //make background color black
+            backgroundColor: AppColors.mainGreen,
+            title: const Text('Pesanan'),
+            centerTitle: false,
+          ),
+          body: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Card(
+                    color: AppColors.backgroundGreen,
+                    child: ListTile(
+                      //set title with style bold
+                      title: Text('Pesanan Selesai',
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text(timeCodeConverterHour
+                              .timeCodeConverterHour(data[index]['time_code'])
+                              .toString() +
+                          ' | ' +
+                          data[index]['date']),
+                      leading: Image.asset(
+                        iconPesananSelesai,
+                        width: 50,
+                        height: 50,
+                      ),
+                    ));
+              }));
+    }
   }
 }
