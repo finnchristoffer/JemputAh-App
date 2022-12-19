@@ -307,7 +307,7 @@ class _JadwalJemput extends StatelessWidget {
     this.data,
   );
 
-TimeCodeConverter timeCodeConverter = TimeCodeConverter();
+  TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   @override
   Widget build(BuildContext context) {
@@ -370,7 +370,8 @@ TimeCodeConverter timeCodeConverter = TimeCodeConverter();
                             bottom: 10,
                           ),
                           child: Text(
-                            timeCodeConverter.timeCodeConverter(data[index]["time_code"]),
+                            timeCodeConverter
+                                .timeCodeConverter(data[index]["time_code"]),
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 14,
@@ -469,11 +470,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     set();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
     setJemput();
   }
 
