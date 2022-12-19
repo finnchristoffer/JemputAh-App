@@ -8,7 +8,6 @@ class UserTransaction {
       "id_shop": snapshot['id_shop'],
       "id_user": snapshot['id_user'],
       "tgl_transaksi_user": snapshot['tgl_transaksi_user'],
-      "id_transaction" : snapshot.id.toString(),
     };
     return data;
   }

@@ -66,10 +66,11 @@ class _TransaksiScreenState extends State<TransaksiScreen> {
                   historyEmpty,
                 ),
               ),
-              const Text(
+              Text(
                 "Ups, Anda belum melakukan \ntransaksi apapun",
                 style: TextStyle(
                   fontSize: 20,
+                  color: AppColors.hintTextColor,
                 ),
                 textAlign: TextAlign.center,
               ),
