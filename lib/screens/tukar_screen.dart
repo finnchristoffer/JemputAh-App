@@ -1,65 +1,77 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jemputah_app/API/FetchData.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/components/dl_alert.dart';
+import 'package:jemputah_app/API/ShopService.dart';
+import 'package:jemputah_app/constants/variable.dart';
+import 'package:jemputah_app/models/user_transaction.dart';
 
-void main() => runApp(const Tukar());
+import '../extensions/date_time_converter.dart';
 
-class Tukar extends StatelessWidget {
+class Tukar extends StatefulWidget {
   const Tukar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: TukarPage(),
-    );
-  }
+  TukarPage createState() => TukarPage();
 }
 
-class TukarPage extends StatelessWidget {
-  TukarPage({super.key});
+class TukarPage extends State<Tukar> {
+  var jml_koin_user = 0;
+  var dateNow = DateTime.now().toString();
+  var firestore = FirebaseFirestore.instance;
 
-  final titles = [
-    "Google Play",
-    "Telkomsel",
-    "Disney+",
-    "XL",
-    "Youtube Premium",
-    "Netflix",
-    "Spotify",
-    "Tri"
-  ];
+  List<Map<String, dynamic>> data = [];
 
-  final images = [
-    googlePlay,
-    telkomsel,
-    disney,
-    xl,
-    youtube,
-    netflix,
-    spotify,
-    tri
-  ];
-  final subtitles = [
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-    "Anda akan mendapatkan Redeem Code Google Play sebesar Rp. 10.000",
-  ];
+  DateTimeConverter dateTimeConverter = DateTimeConverter();
 
-  final points = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000];
+  void setShop() {
+    var shop = FetchShop().fetchListShop();
+    shop.then((value) {
+      setState(() {
+        data = value;
+      });
+    });
+  }
+
+  void setUser() {
+    var user = FetchData().fetchMapData("user", uid);
+    user.then((value) {
+      setState(() {
+        jml_koin_user = value["jml_koin_user"];
+      });
+    });
+  }
+
+  void uploadTransaction(int i) {
+    final UserTransaction = <String, dynamic>{
+      'id_user': uid,
+      'tgl_transaksi_user': dateTimeConverter.formatWithoutDay(dateNow),
+      'id_shop': data[i]['id_shop'],
+    };
+    firestore.collection('user_transaction').add(UserTransaction);
+  }
+
+  // make void for calculate point by point - price and update to firebase
+  void updatePoint(int i) {
+    var point = jml_koin_user - data[i]['price'];
+    firestore.collection('user').doc(uid).update({'jml_koin_user': point});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setShop();
+    setUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     //variable contain int number point
-    int point = 1500;
+    int point = jml_koin_user;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.mainGreen,
@@ -97,21 +109,28 @@ class TukarPage extends StatelessWidget {
               child: GridView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(right: 15, left: 15, bottom: 50),
-                itemCount: titles.length,
+                itemCount: data.length,
                 //change gridview background color
 
                 itemBuilder: (ctx, i) {
                   return GestureDetector(
                     onTap: () {
-                      List<String> alertTitles = <String>["Ok"];
+                      final alertTitles = ["Konfirmasi"];
+                      final alertDetailPesanan =
+                          "Apakah anda yakin ingin melakukan transaksi voucher " +
+                              data[i]['title'] +
+                              " ?";
                       DLAlert(
-                          cancelTitle: 'Cancel',
-                          alertTitle: 'Alert Title',
-                          alertDetailMessage: 'Alert Detail',
+                          cancelTitle: 'Batalkan',
+                          alertTitle: 'Konfirmasi Penukaran',
+                          alertDetailMessage: alertDetailPesanan,
                           alertActionTitles: alertTitles,
                           onAlertAction: (int selectedActionIndex) {
-                            print(
-                                '${alertTitles[selectedActionIndex]} action performed');
+                            uploadTransaction(i);
+                            setState(() {
+                              updatePoint(i);
+                              setUser();
+                            });
                           }).show(context);
                     },
                     child: Card(
@@ -135,8 +154,8 @@ class TukarPage extends StatelessWidget {
                               // mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
-                                  child: Image.asset(
-                                    images[i],
+                                  child: Image.network(
+                                    data[i]['logo'],
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -144,7 +163,7 @@ class TukarPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(bottom: 5, top: 5),
                                   child: Text(
-                                    titles[i],
+                                    data[i]['title'],
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -154,7 +173,7 @@ class TukarPage extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
-                                    subtitles[i],
+                                    data[i]['desc'],
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 15,
@@ -162,7 +181,7 @@ class TukarPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  points[i].toString() + " Koin",
+                                  data[i]['price'].toString() + " Koin",
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
