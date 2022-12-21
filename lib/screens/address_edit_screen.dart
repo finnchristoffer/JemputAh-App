@@ -1,122 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/API/FetchData.dart';
 import 'package:jemputah_app/constants/color.dart';
-import 'package:jemputah_app/constants/images.dart';
-import '../constants/variable.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jemputah_app/screens/address_list_screen.dart';
+import 'package:jemputah_app/screens/base_screen.dart';
+import 'package:jemputah_app/screens/profile_screen.dart';
+import '../constants/variable.dart';
 
-class SettingUI extends StatelessWidget {
-  const SettingUI({super.key});
+class AddressEditPage extends StatefulWidget {
+  final String id_address;
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Setting UI',
-      home: EditProfilePage(),
-    );
-  }
-}
-
-class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  const AddressEditPage(this.id_address, {super.key});
 
   @override
-  _EditProfilePageState createState() => _EditProfilePageState();
+  State<StatefulWidget> createState() => InitState(id_address);
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class InitState extends State<AddressEditPage> {
+  String id_address;
+
+  InitState(this.id_address);
+
   var db = FirebaseFirestore.instance;
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _phoneNumberTextController = TextEditingController();
+  final firestore = FirebaseFirestore.instance;
+  TextEditingController _addressTextController = TextEditingController();
+  TextEditingController _districtTextController = TextEditingController();
+  TextEditingController _cityTextController = TextEditingController();
+  TextEditingController _postalCodeTextController = TextEditingController();
 
-  void setProfile() {
-    var profile = FetchData().fetchMapData('user', uid);
-    profile.then((value) {
+  void setAddress() {
+    var address = FetchData().fetchMapData('address', id_address);
+    address.then((value) {
       setState(() {
-        _nameTextController.text = value['name_user'];
-        _emailTextController.text = value['email_user'];
-        _phoneNumberTextController.text = value['phone_num_user'];
+        _addressTextController.text = value['address'];
+        _districtTextController.text = value['district'];
+        _cityTextController.text = value['city'];
+        _postalCodeTextController.text = value['postal_code'];
       });
     });
   }
 
   @override
   void initState() {
-    setProfile();
+    setAddress();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    return initWidget();
+  }
+
+  Widget initWidget() {
     return Scaffold(
-      backgroundColor: AppColors.backgroundGreen,
+      backgroundColor: const Color.fromRGBO(245, 246, 233, 1),
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
         backgroundColor: AppColors.mainGreen,
-        title: const Text('Ubah Profil'),
+        title: const Text('Detail Alamat'),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 30, right: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30),
         child: ListView(
           children: [
             const SizedBox(
               height: 25,
             ),
-            Center(
-                child: Stack(
-              children: [
-                Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 4, color: AppColors.secondaryBorder),
-                      boxShadow: [
-                        BoxShadow(
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0, 10)),
-                      ],
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(profilePicture))),
-                ),
-                Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 2, color: AppColors.secondaryBorder),
-                          color: AppColors.buttonBackground),
-                      child: const Icon(Icons.edit, color: Colors.white),
-                    )),
-              ],
-            )),
-            Container(
-                margin: const EdgeInsets.only(top: 50),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey),
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 50,
-                        color: Color(0xffEEEEEE)),
-                  ],
-                ),
-                alignment: Alignment.center,
-                child: reusableTextField(
-                    "Nama Lengkap", Icons.person, false, _nameTextController)),
             Container(
                 margin: const EdgeInsets.only(top: 20),
                 decoration: BoxDecoration(
@@ -131,10 +81,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: reusableTextField(
-                    "Email", Icons.email, false, _emailTextController)),
+                child: reusableAddressTextField("Alamat Lengkap", Icons.home,
+                    true, _addressTextController)),
             Container(
-                margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 5, left: 5),
+              child: const Text(
+                '* Nama jalan, nama wilayah, nomor rumah',
+                style: TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+            ),
+            Container(
+                margin: const EdgeInsets.only(top: 35),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Colors.grey),
@@ -147,14 +104,50 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: reusableTextField("Nomor Ponsel", Icons.phone, false,
-                    _phoneNumberTextController)),
+                child: reusableAddressTextField("Kecamatan", Icons.home_work,
+                    false, _districtTextController)),
+            Container(
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField(
+                    "Kota", Icons.location_city, false, _cityTextController)),
+            Container(
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Color(0xffEEEEEE)),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: reusableAddressTextField("Kode Pos", Icons.numbers,
+                    false, _postalCodeTextController)),
             GestureDetector(
               onTap: () {
-                final nameText = _nameTextController.value.text;
-                final email = _emailTextController.value.text;
-                final phoneNum = _phoneNumberTextController.value.text;
-                if (nameText.isEmpty || email.isEmpty || phoneNum.isEmpty) {
+                final addressText = _addressTextController.value.text;
+                final districtText = _districtTextController.value.text;
+                final cityText = _cityTextController.value.text;
+                final postalCodeText = _postalCodeTextController.value.text;
+                if (addressText.isEmpty ||
+                    districtText.isEmpty ||
+                    cityText.isEmpty ||
+                    postalCodeText.isEmpty) {
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -171,17 +164,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         );
                       });
                 } else {
-                  final user = <String, dynamic>{
-                    "name_user": _nameTextController.text,
-                    "email_user": _emailTextController.text,
-                    "phone_num_user": _phoneNumberTextController.text,
+                  final address = <String, dynamic>{
+                    "address": _addressTextController.text,
+                    "district": _districtTextController.text,
+                    "city": _cityTextController.text,
+                    "postal_code": _postalCodeTextController.text,
+                    "id_user": uid,
                   };
-                  db.collection("user").doc(uid).update(user);
+                  db.collection("address").doc(id_address).set(address);
                   Navigator.pop(context);
                 }
               },
               child: Container(
-                margin: const EdgeInsets.only(top: 140),
+                margin: const EdgeInsets.only(top: 70),
                 alignment: Alignment.center,
                 height: 50,
                 decoration: BoxDecoration(

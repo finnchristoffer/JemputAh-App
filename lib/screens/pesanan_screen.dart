@@ -49,7 +49,7 @@ class PesananPage extends State<Pesanan> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  pesanan_kosong,
+                  pesananKosong,
                   width: 250,
                   height: 280,
                   fit: BoxFit.fill,

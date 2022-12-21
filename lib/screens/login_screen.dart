@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
+import 'package:jemputah_app/screens/forgot_password_screen.dart';
 import './signup_screen.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
@@ -85,7 +86,12 @@ class InitState extends State<LoginScreen> {
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 child: const Text('Lupa Kata Sandi?'),
-                onTap: () => {},
+                onTap: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen()))
+                },
               ),
             ),
             signInSignUpButton(context, true, () {
