@@ -29,7 +29,6 @@ class AddressDetailPage extends StatefulWidget {
 
 class _AddressDetailState extends State<AddressDetailPage> {
   var db = FirebaseFirestore.instance;
-  final firestore = FirebaseFirestore.instance;
   TextEditingController _addressTextController = TextEditingController();
   TextEditingController _districtTextController = TextEditingController();
   TextEditingController _cityTextController = TextEditingController();
