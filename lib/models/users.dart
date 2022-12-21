@@ -9,6 +9,7 @@ class Users {
       "jml_koin_user": snapshot['jml_koin_user'],
       "name_user": snapshot['name_user'],
       "phone_num_user": snapshot['phone_num_user'],
+      "profile_pic_user":snapshot['profile_pic_user'],
     };
     return data;
   }

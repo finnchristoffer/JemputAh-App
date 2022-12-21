@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:jemputah_app/API/FetchDataDriver.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/extensions/date_time_converter.dart';
+import '../API/FetchData.dart';
 import '../constants/variable.dart';
 
 class PenjemputanScreen extends StatefulWidget {
@@ -17,7 +21,12 @@ class PenjemputanScreen extends StatefulWidget {
 class InitState extends State<PenjemputanScreen> {
   var db = FirebaseFirestore.instance;
   var id_sampah = '';
+  var id_driver = '';
+  var id_jemput = '';
+  var timecode = 0;
   TimeConverter timeConverter = TimeConverter();
+  List<Map<String, dynamic>> dataAddress = [];
+  var lokasiPengambilanItems = [''];
 
   DateTimeConverter dateTimeConverter = DateTimeConverter();
   var dateNow = DateTime.now().toString();
@@ -57,7 +66,35 @@ class InitState extends State<PenjemputanScreen> {
     id_sampah = value;
   }
 
+  void setAddress() {
+    var address = FetchData().fetchListData('address', uid);
+    address.then((value) {
+      setState(() {
+        dataAddress = value;
+        lokasiPengambilanItems =
+            dataAddress.map((e) => e['address'].toString()).toList();
+        lokasiPengambilan = lokasiPengambilanItems[0];
+      });
+    });
+  }
+
+  void setDriver(int timecode) {
+    Random random = new Random();
+    var driver = FetchDataDriver().fetchListDriver(timecode);
+    driver.then((value) {
+      setState(() {
+        if (value.length > 1) {
+          int num = random.nextInt(value.length);
+          id_driver = value[num]['id_driver'];
+        } else {
+          id_driver = value[0]['id_driver'];
+        }
+      });
+    });
+  }
+
   Future<void> aturPenjemputan() async {
+    timecode = timeConverter.format(waktuPengambilan);
     final sampah = <String, dynamic>{
       "berat1": _beratSampahPlastik,
       "berat2": _beratSampahKarton,
@@ -65,20 +102,25 @@ class InitState extends State<PenjemputanScreen> {
       "berat4": _beratSampahKaleng,
     };
     DocumentReference docRef = await db.collection("sampah").add(sampah);
-    id_sampah = docRef.id;
+    id_sampah = docRef.id.toString();
     final jemput = <String, dynamic>{
       "address": lokasiPengambilan,
       "date": dateTimeConverter.format(dateNow),
       "done": false,
-      "id_driver": 'dummy_driver',
+      "id_driver": id_driver,
       "id_sampah": id_sampah,
       "id_user": uid,
-      "time_code": timeConverter.format(waktuPengambilan),
+      "time_code": timecode,
       "total_berat": _totalBerat,
       "total_koin_driver": 10000,
       "total_koin_user": _totalPendapatan,
     };
-    db.collection("jemput").add(jemput);
+    DocumentReference ref = await db.collection("jemput").add(jemput);
+    id_jemput = ref.id.toString();
+    db
+        .collection("driver")
+        .doc(id_driver)
+        .update({'slot_$timecode': id_jemput});
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => BaseScreen()));
@@ -123,14 +165,13 @@ class InitState extends State<PenjemputanScreen> {
     );
   }
 
-  String lokasiPengambilan = 'Jalan Lengkong Besar';
-  final lokasiPengambilanItems = [
-    'Jalan Lengkong Besar',
-    'Jalan Buah Batu',
-    'Jalan Salam',
-    'Jalan Merdeka',
-    'Jalan Soekarno Hatta'
-  ];
+  // DropdownMenuItem lokasiPengambilan =
+  // DropdownMenuItem(
+  //   value: 'Pilih Lokasi Penjemputan',
+  //   child: Text('Pilih Lokasi Penjemputan'),
+  // );
+
+  String lokasiPengambilan = '';
 
   String waktuPengambilan = '08:00 - 10.00';
   final waktuPengambilanItems = [
@@ -140,6 +181,12 @@ class InitState extends State<PenjemputanScreen> {
     '14:00 - 16.00',
     '16:00 - 18.00',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    setAddress();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -402,7 +449,7 @@ class InitState extends State<PenjemputanScreen> {
                 ),
                 SizedBox(
                   width: 260,
-                  child: DropdownButton(
+                  child: DropdownButton<String>(
                     isExpanded: true,
                     // Initial Value
                     value: lokasiPengambilan,
@@ -525,6 +572,7 @@ class InitState extends State<PenjemputanScreen> {
                         );
                       });
                 } else {
+                  setDriver(timeConverter.format(waktuPengambilan));
                   aturPenjemputan();
                 }
               },
