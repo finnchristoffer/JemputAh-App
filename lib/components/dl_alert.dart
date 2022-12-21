@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jemputah_app/constants/color.dart';
 
 typedef AlertAction<T> = void Function(T index);
 
@@ -20,12 +21,18 @@ class DLAlert {
   Widget _getAlertDialog(List<Widget> actions) {
     if (Platform.isIOS)
       return CupertinoAlertDialog(
-          title: Text(alertTitle),
+          title: Text(
+            alertTitle,
+            style: TextStyle(color: AppColors.black),
+          ),
           content: Text(alertDetailMessage),
           actions: actions);
     else
       return AlertDialog(
-          title: Text(alertTitle),
+          title: Text(
+            alertTitle,
+            style: TextStyle(color: AppColors.black),
+          ),
           content: Text(alertDetailMessage),
           actions: actions);
   }
@@ -34,7 +41,10 @@ class DLAlert {
     List<Widget> actions = <Widget>[];
 //Customize the cancel button as per the requirement
     Widget actionButton = TextButton(
-      child: Text(cancelTitle),
+      child: Text(
+        cancelTitle,
+        style: TextStyle(color: Colors.red),
+      ),
       onPressed: () {
         Navigator.pop(context);
       },
@@ -42,7 +52,10 @@ class DLAlert {
     actions.add(actionButton);
     for (int i = 0; i < alertActionTitles.length; i++) {
       Widget actionButton = TextButton(
-        child: Text(alertActionTitles[i]),
+        child: Text(
+          alertActionTitles[i],
+          style: TextStyle(color: AppColors.black),
+        ),
         onPressed: () {
           Navigator.pop(context);
           onAlertAction(i);
