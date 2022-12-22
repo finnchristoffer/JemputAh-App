@@ -115,6 +115,12 @@ class _ProfilScreenState extends State<ProfilScreen> {
     });
   }
 
+  onGoBack(dynamic value) {
+    setState(() {
+      set();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -210,14 +216,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     color: AppColors.black,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext ctx) {
-                          return const EditProfilePage();
-                        },
-                      ),
-                    );
+                    Route route = MaterialPageRoute(
+                        builder: (context) => EditProfilePage());
+                    Navigator.push(context, route).then(onGoBack);
                   },
                 ),
               ),
@@ -248,7 +249,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 size: 30,
                 color: AppColors.black,
               ),
-              const ChangePasswordPage(),
+              ChangePasswordPage(),
               false),
           _ProfileCard(
               "Keluar",
