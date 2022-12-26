@@ -39,7 +39,7 @@ class PesananPage extends State<Pesanan> {
       return Scaffold(
           backgroundColor: AppColors.backgroundGreen,
           appBar: AppBar(
-            //make background color black
+            automaticallyImplyLeading: false,
             backgroundColor: AppColors.mainGreen,
             title: const Text('Pesanan'),
             centerTitle: false,
