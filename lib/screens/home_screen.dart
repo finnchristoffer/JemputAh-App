@@ -309,6 +309,127 @@ class _JadwalJemput extends StatelessWidget {
 
   TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
+  Widget listJemput(BuildContext context) {
+    if (data.isEmpty) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height / 3.5,
+        child: const Center(
+          child: Text("Belum ada Penjemputan"),
+        ),
+      );
+    } else {
+      return Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 17,
+        ),
+        height:
+            MediaQuery.of(context).size.height - 75 - 130 * (6 - data.length),
+        child: ListView.separated(
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SizedBox(
+              height: 113,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                margin: const EdgeInsets.symmetric(
+                  vertical: 5,
+                ),
+                color: AppColors.jadwalCardBackground,
+                child: ListTile(
+                  visualDensity: const VisualDensity(
+                    horizontal: -4,
+                    vertical: 4,
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 5,
+                      bottom: 10,
+                    ),
+                    child: Text(
+                      data[index]["date"],
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  subtitle: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          timeCodeConverter
+                              .timeCodeConverter(data[index]["time_code"]),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        data[index]["address"],
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  leading: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 5,
+                    ),
+                    child: Image.asset(
+                      iconJadwal,
+                      width: 64,
+                      height: 64,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  trailing: const Padding(
+                    padding: EdgeInsets.only(
+                      left: 5,
+                      top: 5,
+                    ),
+                    child: Icon(
+                      Icons.navigate_next,
+                      size: 60,
+                    ),
+                  ),
+                  minLeadingWidth: 64,
+                  dense: true,
+                  horizontalTitleGap: 8.5,
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) {
+                          return DetailPenjemputanScreen(
+                              data[index]["id_jemput"]);
+                        },
+                      ),
+                    ),
+                  },
+                ),
+              ),
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            thickness: 1,
+            height: 10,
+            color: AppColors.backgroundGreen,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -325,114 +446,7 @@ class _JadwalJemput extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 17,
-          ),
-          height: 250,
-          child: ListView.separated(
-            itemCount: data.length,
-            itemBuilder: (BuildContext context, int index) {
-              return SizedBox(
-                height: 113,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 5,
-                  ),
-                  color: AppColors.jadwalCardBackground,
-                  child: ListTile(
-                    visualDensity: const VisualDensity(
-                      horizontal: -4,
-                      vertical: 4,
-                    ),
-                    title: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 5,
-                        bottom: 10,
-                      ),
-                      child: Text(
-                        data[index]["date"],
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    subtitle: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 10,
-                          ),
-                          child: Text(
-                            timeCodeConverter
-                                .timeCodeConverter(data[index]["time_code"]),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          data[index]["address"],
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    leading: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 5,
-                      ),
-                      child: Image.asset(
-                        iconJadwal,
-                        width: 64,
-                        height: 64,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    trailing: const Padding(
-                      padding: EdgeInsets.only(
-                        left: 5,
-                        top: 5,
-                      ),
-                      child: Icon(
-                        Icons.navigate_next,
-                        size: 60,
-                      ),
-                    ),
-                    minLeadingWidth: 64,
-                    dense: true,
-                    horizontalTitleGap: 8.5,
-                    onTap: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                            return DetailPenjemputanScreen(
-                                data[index]["id_jemput"]);
-                          },
-                        ),
-                      ),
-                    },
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => Divider(
-              thickness: 1,
-              height: 10,
-              color: AppColors.backgroundGreen,
-            ),
-          ),
-        ),
+        listJemput(context),
       ],
     );
   }
