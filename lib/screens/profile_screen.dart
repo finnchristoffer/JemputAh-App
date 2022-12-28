@@ -21,7 +21,7 @@ class ProfilScreen extends StatefulWidget {
 class _ProfileCard extends StatelessWidget {
   final String name;
   final Widget icon;
-  final ontap;
+  final Widget ontap;
   final bool isLogOut;
 
   const _ProfileCard(this.name, this.icon, this.ontap, this.isLogOut);
@@ -77,9 +77,10 @@ class _ProfileCard extends StatelessWidget {
         onTap: isLogOut
             ? () {
                 FirebaseAuth.instance.signOut().then((value) {
-                  print("Signed Out");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
                 });
               }
             : () => Navigator.push(
@@ -217,7 +218,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                   ),
                   onPressed: () {
                     Route route = MaterialPageRoute(
-                        builder: (context) => EditProfilePage());
+                        builder: (context) => const EditProfilePage());
                     Navigator.push(context, route).then(onGoBack);
                   },
                 ),
@@ -249,7 +250,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 size: 30,
                 color: AppColors.black,
               ),
-              ChangePasswordPage(),
+              const ChangePasswordPage(),
               false),
           _ProfileCard(
               "Keluar",

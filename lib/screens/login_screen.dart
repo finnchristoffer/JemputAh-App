@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:jemputah_app/screens/forgot_password_screen.dart';
-import './signup_screen.dart';
+import 'package:jemputah_app/screens/signup_screen.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 
@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class InitState extends State<LoginScreen> {
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class InitState extends State<LoginScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ForgotPasswordScreen()))
+                          builder: (context) => const ForgotPasswordScreen()))
                 },
               ),
             ),
@@ -101,7 +101,7 @@ class InitState extends State<LoginScreen> {
                       password: _passwordTextController.text)
                   .then((value) {
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => BaseScreen()));
+                    MaterialPageRoute(builder: (context) => const BaseScreen()));
               }).onError((error, stackTrace) {
                 showDialog(
                     context: context,

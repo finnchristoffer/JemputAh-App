@@ -18,10 +18,10 @@ class ContactUsPage extends StatefulWidget {
   const ContactUsPage({super.key});
 
   @override
-  _ContactUsState createState() => _ContactUsState();
+  ContactUsState createState() => ContactUsState();
 }
 
-class _ContactUsState extends State<ContactUsPage> {
+class ContactUsState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

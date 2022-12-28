@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/extensions/time_code_converter.dart';
-
-import '../API/FetchData.dart';
+import 'package:jemputah_app/API/FetchData.dart';
 
 class DetailPenjemputanScreen extends StatefulWidget {
-  final String id_jemput;
+  final String idJemput;
 
-  const DetailPenjemputanScreen(this.id_jemput, {super.key});
+  const DetailPenjemputanScreen(this.idJemput, {super.key});
 
   @override
-  State<StatefulWidget> createState() => InitState(id_jemput);
+  State<StatefulWidget> createState() => InitState(idJemput);
 }
 
 class InitState extends State<DetailPenjemputanScreen> {
-  String id_jemput;
+  String idJemput;
 
-  InitState(this.id_jemput);
+  InitState(this.idJemput);
 
   dynamic _beratSampahPlastik = 0;
   dynamic _beratSampahKarton = 0;
@@ -37,7 +36,7 @@ class InitState extends State<DetailPenjemputanScreen> {
   TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   void setJemput() {
-    var jemput = FetchData().fetchMapData('jemput', id_jemput);
+    var jemput = FetchData().fetchMapData('jemput', idJemput);
     jemput.then((value) {
       setState(() {
         _totalPendapatan = value['total_koin_user'];
@@ -116,7 +115,8 @@ class InitState extends State<DetailPenjemputanScreen> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     _namaDriver,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
@@ -348,7 +348,7 @@ class InitState extends State<DetailPenjemputanScreen> {
                     width: 260,
                     child: Text(
                       _alamatPenjemputan,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 15),
                     )),
               ])),
@@ -385,7 +385,7 @@ class InitState extends State<DetailPenjemputanScreen> {
                     width: 260,
                     child: Text(
                       _tanggalPenjemputan,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 15),
                     )),
               ])),
@@ -421,8 +421,8 @@ class InitState extends State<DetailPenjemputanScreen> {
                 SizedBox(
                     width: 260,
                     child: Text(
-                      '$_waktuPenjemputan',
-                      style: TextStyle(
+                      _waktuPenjemputan,
+                      style: const TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 15),
                     )),
               ])),

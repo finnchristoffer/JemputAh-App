@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeConverter {
@@ -112,6 +111,7 @@ class DateTimeConverter {
     }
     return "$hari, $d $month $Y";
   }
+
 // format without day
   String formatWithoutDay(String tanggal) {
     DateTime dateTime = DateFormat("yyyy-MM-dd").parse(tanggal);
@@ -184,7 +184,4 @@ class DateTimeConverter {
     }
     return "$d $month $Y";
   }
-
-
-  
 }

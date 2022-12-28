@@ -1,6 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jemputah_app/models/driver.dart';
-import 'package:jemputah_app/models/jemput.dart';
 
 class FetchDataDriver {
   Future<List<Map<String, dynamic>>> fetchListDriver(int? timecode) async {

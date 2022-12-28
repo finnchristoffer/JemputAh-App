@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/API/FetchDataDriver.dart';
 import 'package:jemputah_app/constants/color.dart';
@@ -8,8 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/extensions/date_time_converter.dart';
-import '../API/FetchData.dart';
-import '../constants/variable.dart';
+import 'package:jemputah_app/API/FetchData.dart';
+import 'package:jemputah_app/constants/variable.dart';
 
 class PenjemputanScreen extends StatefulWidget {
   const PenjemputanScreen({super.key});
@@ -20,9 +19,9 @@ class PenjemputanScreen extends StatefulWidget {
 
 class InitState extends State<PenjemputanScreen> {
   var db = FirebaseFirestore.instance;
-  var id_sampah = '';
-  var id_driver = '';
-  var id_jemput = '';
+  var idSampah = '';
+  var idDriver = '';
+  var idJemput = '';
   var timecode = 0;
   TimeConverter timeConverter = TimeConverter();
   List<Map<String, dynamic>> dataAddress = [];
@@ -36,16 +35,25 @@ class InitState extends State<PenjemputanScreen> {
   double _beratSampahKaca = 0;
   double _beratSampahKaleng = 0;
 
-  double _totalPendapatan = 0;
+  int _totalPendapatan = 0;
   double _totalBerat = 0;
 
   List weightOfItems = [0.0, 0.0, 0.0, 0.0];
 
+  int setDriverCoin(double totalBerat) {
+    if (totalBerat <= 10) {
+      return 1000;
+    } else {
+      return 1500;
+    }
+  }
+
   void _calculateCoin() {
-    _totalPendapatan = (_beratSampahPlastik * 1000 +
-        _beratSampahKarton * 2000 +
-        _beratSampahKaca * 3000 +
-        _beratSampahKaleng * 4000);
+    _totalPendapatan = (_beratSampahPlastik * 120 +
+            _beratSampahKarton * 150 +
+            _beratSampahKaca * 500 +
+            _beratSampahKaleng * 550)
+        .toInt();
   }
 
   void _calculateTotalWeight() {
@@ -63,7 +71,7 @@ class InitState extends State<PenjemputanScreen> {
   }
 
   void setIdSampah(value) {
-    id_sampah = value;
+    idSampah = value;
   }
 
   void setAddress() {
@@ -79,15 +87,15 @@ class InitState extends State<PenjemputanScreen> {
   }
 
   void setDriver(int timecode) {
-    Random random = new Random();
+    Random random = Random();
     var driver = FetchDataDriver().fetchListDriver(timecode);
     driver.then((value) {
       setState(() {
         if (value.length > 1) {
           int num = random.nextInt(value.length);
-          id_driver = value[num]['id_driver'];
+          idDriver = value[num]['id_driver'];
         } else {
-          id_driver = value[0]['id_driver'];
+          idDriver = value[0]['id_driver'];
         }
       });
     });
@@ -102,28 +110,25 @@ class InitState extends State<PenjemputanScreen> {
       "berat4": _beratSampahKaleng,
     };
     DocumentReference docRef = await db.collection("sampah").add(sampah);
-    id_sampah = docRef.id.toString();
+    idSampah = docRef.id.toString();
     final jemput = <String, dynamic>{
       "address": lokasiPengambilan,
       "date": dateTimeConverter.format(dateNow),
       "done": false,
-      "id_driver": id_driver,
-      "id_sampah": id_sampah,
+      "id_driver": idDriver,
+      "id_sampah": idSampah,
       "id_user": uid,
       "time_code": timecode,
       "total_berat": _totalBerat,
-      "total_koin_driver": 10000,
+      "total_koin_driver": setDriverCoin(_totalBerat),
       "total_koin_user": _totalPendapatan,
     };
     DocumentReference ref = await db.collection("jemput").add(jemput);
-    id_jemput = ref.id.toString();
-    db
-        .collection("driver")
-        .doc(id_driver)
-        .update({'slot_$timecode': id_jemput});
+    idJemput = ref.id.toString();
+    db.collection("driver").doc(idDriver).update({'slot_$timecode': idJemput});
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => BaseScreen()));
+        context, MaterialPageRoute(builder: (context) => const BaseScreen()));
   }
 
   Widget _incrementWeight(int index) {
@@ -164,12 +169,6 @@ class InitState extends State<PenjemputanScreen> {
       child: const Icon(Icons.remove),
     );
   }
-
-  // DropdownMenuItem lokasiPengambilan =
-  // DropdownMenuItem(
-  //   value: 'Pilih Lokasi Penjemputan',
-  //   child: Text('Pilih Lokasi Penjemputan'),
-  // );
 
   String lokasiPengambilan = '';
 

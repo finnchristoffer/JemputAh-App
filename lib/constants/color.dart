@@ -13,4 +13,5 @@ class AppColors {
   static Color secondaryBorder = const Color.fromRGBO(178, 186, 159, 1);
   static Color separatorLine = const Color.fromRGBO(217, 217, 217, 1);
   static Color hintTextColor = const Color.fromRGBO(0, 0, 0, 0.5);
+  static Color red = const Color.fromRGBO(255, 0, 0, 1);
 }

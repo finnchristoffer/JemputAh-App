@@ -33,10 +33,10 @@ class _TransaksiScreenState extends State<TransaksiScreen> {
     penjemputan.then((value) {
       setState(() {
         dataTransaksi = value;
-        value.forEach((element) {
+        for (var element in value) {
           setShop(index, element['id_shop']);
           index += 1;
-        });
+        }
       });
     });
   }
@@ -96,9 +96,7 @@ class _TransaksiScreenState extends State<TransaksiScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            shopPrice[index].toString() +
-                                'Koin   | ' +
-                                shopTitle[index],
+                            '${shopPrice[index]} Koin   | ${shopTitle[index]}',
                             style: const TextStyle(color: Colors.black),
                           ),
                           Container(
