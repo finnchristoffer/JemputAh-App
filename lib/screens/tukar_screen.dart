@@ -74,7 +74,6 @@ class TukarPage extends State<Tukar> {
     int point = jml_koin_user;
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           backgroundColor: AppColors.mainGreen,
           title: const Text('Tukar Page'),
           centerTitle: false,
