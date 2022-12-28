@@ -8,13 +8,8 @@ import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/screens/detail_penjemputan_screen.dart';
 import 'package:jemputah_app/screens/penjemputan_screen.dart';
 import 'package:jemputah_app/screens/transaksi_screen.dart';
-import '../API/FetchData.dart';
-import '../constants/variable.dart';
-import 'package:jemputah_app/extensions/date_time_converter.dart';
-
-// DateTimeConverter dateTimeConverter = DateTimeConverter();
-// var n = DateTime.now().toString();
-// String tgl = dateTimeConverter.format(n);
+import 'package:jemputah_app/API/FetchData.dart';
+import 'package:jemputah_app/constants/variable.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,7 +32,7 @@ class _HistoryTransactionButton extends StatelessWidget {
       onPressed: () {
         Navigator.push(context, MaterialPageRoute<void>(
           builder: (BuildContext context) {
-            return TransaksiScreen();
+            return const TransaksiScreen();
           },
         ));
       },
@@ -48,7 +43,7 @@ class _HistoryTransactionButton extends StatelessWidget {
 class _LeadAppBar extends StatelessWidget {
   final String username;
 
-  _LeadAppBar(
+  const _LeadAppBar(
     this.username,
   );
 
@@ -65,7 +60,8 @@ class _LeadAppBar extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(
-            left: 25,
+            top: 15,
+            left: 15,
           ),
           child: Text(
             "Hai, $username",
@@ -82,11 +78,11 @@ class _LeadAppBar extends StatelessWidget {
 }
 
 class _JemputBox extends StatelessWidget {
-  int berat;
-  int jmlJemput;
-  int koin;
+  final dynamic berat;
+  final dynamic jmlJemput;
+  final dynamic koin;
 
-  _JemputBox(
+  const _JemputBox(
     this.koin,
     this.jmlJemput,
     this.berat,
@@ -103,12 +99,12 @@ class _JemputBox extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Color.fromRGBO(178, 186, 159, 1),
+          color: const Color.fromRGBO(178, 186, 159, 1),
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-        color: Color.fromRGBO(178, 186, 159, 1),
+        color: const Color.fromRGBO(178, 186, 159, 1),
       ),
       child: Column(
         children: [
@@ -279,9 +275,9 @@ class _CarouselState extends State<_Carousel> {
 }
 
 class CarouselView extends StatelessWidget {
-  String path;
+  final String path;
 
-  CarouselView(this.path, {super.key});
+  const CarouselView(this.path, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -301,13 +297,13 @@ class CarouselView extends StatelessWidget {
 }
 
 class _JadwalJemput extends StatelessWidget {
-  List<Map<String, dynamic>> data;
+  final List<Map<String, dynamic>> data;
 
   _JadwalJemput(
     this.data,
   );
 
-  TimeCodeConverter timeCodeConverter = TimeCodeConverter();
+  final TimeCodeConverter timeCodeConverter = TimeCodeConverter();
 
   Widget listJemput(BuildContext context) {
     if (data.isEmpty) {
@@ -454,9 +450,9 @@ class _JadwalJemput extends StatelessWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var username = "Account";
-  var jml_koin_user = 0;
-  var jml_jemput = 0;
-  var jml_berat = 0;
+  var jmlKoinUser = 0;
+  var jmlJemput = 0;
+  dynamic jmlBerat = 0;
   List<Map<String, dynamic>> data = [];
 
   void setJemput() {
@@ -473,9 +469,9 @@ class _HomeScreenState extends State<HomeScreen> {
     user.then((value) {
       setState(() {
         username = value["name_user"];
-        jml_koin_user = value["jml_koin_user"];
-        jml_jemput = value["jml_jemput"];
-        jml_berat = value["jml_berat"];
+        jmlKoinUser = value["jml_koin_user"];
+        jmlJemput = value["jml_jemput"];
+        jmlBerat = value["jml_berat"];
       });
     });
   }
@@ -511,7 +507,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 children: [
-                  _JemputBox(jml_koin_user, jml_jemput, jml_berat),
+                  _JemputBox(jmlKoinUser, jmlJemput, jmlBerat),
                   _Carousel(),
                   _JadwalJemput(data),
                 ],

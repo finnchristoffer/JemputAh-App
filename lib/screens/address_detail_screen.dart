@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jemputah_app/screens/address_list_screen.dart';
-import 'package:jemputah_app/screens/base_screen.dart';
-import 'package:jemputah_app/screens/profile_screen.dart';
-import '../constants/variable.dart';
+import 'package:jemputah_app/constants/variable.dart';
 
 class AddressUI extends StatelessWidget {
   const AddressUI({super.key});
@@ -24,15 +21,15 @@ class AddressDetailPage extends StatefulWidget {
   const AddressDetailPage({super.key});
 
   @override
-  _AddressDetailState createState() => _AddressDetailState();
+  AddressDetailState createState() => AddressDetailState();
 }
 
-class _AddressDetailState extends State<AddressDetailPage> {
+class AddressDetailState extends State<AddressDetailPage> {
   var db = FirebaseFirestore.instance;
-  TextEditingController _addressTextController = TextEditingController();
-  TextEditingController _districtTextController = TextEditingController();
-  TextEditingController _cityTextController = TextEditingController();
-  TextEditingController _postalCodeTextController = TextEditingController();
+  final TextEditingController _addressTextController = TextEditingController();
+  final TextEditingController _districtTextController = TextEditingController();
+  final TextEditingController _cityTextController = TextEditingController();
+  final TextEditingController _postalCodeTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

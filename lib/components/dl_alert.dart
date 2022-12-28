@@ -19,7 +19,7 @@ class DLAlert {
   AlertAction<int> onAlertAction;
 
   Widget _getAlertDialog(List<Widget> actions) {
-    if (Platform.isIOS)
+    if (Platform.isIOS) {
       return CupertinoAlertDialog(
           title: Text(
             alertTitle,
@@ -27,7 +27,7 @@ class DLAlert {
           ),
           content: Text(alertDetailMessage),
           actions: actions);
-    else
+    } else {
       return AlertDialog(
           title: Text(
             alertTitle,
@@ -35,6 +35,7 @@ class DLAlert {
           ),
           content: Text(alertDetailMessage),
           actions: actions);
+    }
   }
 
   void show(BuildContext context) {
@@ -43,7 +44,7 @@ class DLAlert {
     Widget actionButton = TextButton(
       child: Text(
         cancelTitle,
-        style: TextStyle(color: Colors.red),
+        style: TextStyle(color: AppColors.red),
       ),
       onPressed: () {
         Navigator.pop(context);

@@ -3,34 +3,31 @@ import 'package:jemputah_app/API/FetchData.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jemputah_app/screens/address_list_screen.dart';
-import 'package:jemputah_app/screens/base_screen.dart';
-import 'package:jemputah_app/screens/profile_screen.dart';
-import '../constants/variable.dart';
+import 'package:jemputah_app/constants/variable.dart';
 
 class AddressEditPage extends StatefulWidget {
-  final String id_address;
+  final String idAddress;
 
-  const AddressEditPage(this.id_address, {super.key});
+  const AddressEditPage(this.idAddress, {super.key});
 
   @override
-  State<StatefulWidget> createState() => InitState(id_address);
+  State<StatefulWidget> createState() => InitState(idAddress);
 }
 
 class InitState extends State<AddressEditPage> {
-  String id_address;
+  String idAddress;
 
-  InitState(this.id_address);
+  InitState(this.idAddress);
 
   var db = FirebaseFirestore.instance;
   final firestore = FirebaseFirestore.instance;
-  TextEditingController _addressTextController = TextEditingController();
-  TextEditingController _districtTextController = TextEditingController();
-  TextEditingController _cityTextController = TextEditingController();
-  TextEditingController _postalCodeTextController = TextEditingController();
+  final TextEditingController _addressTextController = TextEditingController();
+  final TextEditingController _districtTextController = TextEditingController();
+  final TextEditingController _cityTextController = TextEditingController();
+  final TextEditingController _postalCodeTextController = TextEditingController();
 
   void setAddress() {
-    var address = FetchData().fetchMapData('address', id_address);
+    var address = FetchData().fetchMapData('address', idAddress);
     address.then((value) {
       setState(() {
         _addressTextController.text = value['address'];
@@ -171,7 +168,7 @@ class InitState extends State<AddressEditPage> {
                     "postal_code": _postalCodeTextController.text,
                     "id_user": uid,
                   };
-                  db.collection("address").doc(id_address).set(address);
+                  db.collection("address").doc(idAddress).set(address);
                   Navigator.pop(context);
                 }
               },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/size.dart';
-import 'package:jemputah_app/screens/featured_screen.dart';
 import 'package:jemputah_app/screens/home_screen.dart';
 import 'package:jemputah_app/screens/pesanan_screen.dart';
 import 'package:jemputah_app/screens/tukar_screen.dart';
@@ -12,10 +11,10 @@ class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
 
   @override
-  _BaseScreenState createState() => _BaseScreenState();
+  BaseScreenState createState() => BaseScreenState();
 }
 
-class _BaseScreenState extends State<BaseScreen> {
+class BaseScreenState extends State<BaseScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[

@@ -4,8 +4,7 @@ import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/API/FetchDataJemput.dart';
 import 'package:jemputah_app/extensions/time_code_converter.dart';
-import '../constants/variable.dart';
-import 'package:jemputah_app/extensions/date_time_converter.dart';
+import 'package:jemputah_app/constants/variable.dart';
 
 class Pesanan extends StatefulWidget {
   const Pesanan({super.key});
@@ -17,6 +16,7 @@ class Pesanan extends StatefulWidget {
 class PesananPage extends State<Pesanan> {
   List<Map<String, dynamic>> data = [];
 
+  @override
   void initState() {
     super.initState();
     setPesanan();
@@ -68,6 +68,7 @@ class PesananPage extends State<Pesanan> {
           backgroundColor: AppColors.backgroundGreen,
           appBar: AppBar(
             //make background color black
+            automaticallyImplyLeading: false,
             backgroundColor: AppColors.mainGreen,
             title: const Text('Pesanan'),
             centerTitle: false,
@@ -79,13 +80,10 @@ class PesananPage extends State<Pesanan> {
                     color: AppColors.backgroundGreen,
                     child: ListTile(
                       //set title with style bold
-                      title: Text('Pesanan Selesai',
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(timeCodeConverterHour
-                              .timeCodeConverterHour(data[index]['time_code'])
-                              .toString() +
-                          ' | ' +
-                          data[index]['date']),
+                      title: const Text('Pesanan Selesai',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text(
+                          '${timeCodeConverterHour.timeCodeConverterHour(data[index]['time_code'])} | ${data[index]['date']}'),
                       leading: Image.asset(
                         iconPesananSelesai,
                         width: 50,

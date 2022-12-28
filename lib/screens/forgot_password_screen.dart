@@ -1,10 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
-import 'package:jemputah_app/screens/base_screen.dart';
-import './signup_screen.dart';
-import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -31,7 +29,7 @@ class InitState extends State<ForgotPasswordScreen> {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               content: Text(
                   'Email Pengaturan Ulang Kata Sandi sudah terkirim. Silahkan Cek Email Anda.'),
             );
@@ -130,7 +128,7 @@ class InitState extends State<ForgotPasswordScreen> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
 

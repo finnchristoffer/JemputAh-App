@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/screens/address_detail_screen.dart';
 import 'package:jemputah_app/screens/address_edit_screen.dart';
-import '../constants/variable.dart';
-import '../API/FetchData.dart';
+import 'package:jemputah_app/constants/variable.dart';
+import 'package:jemputah_app/API/FetchData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jemputah_app/constants/images.dart';
 
@@ -73,7 +71,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
               ),
               onTap: () {
                 Route route = MaterialPageRoute(
-                    builder: (context) => AddressDetailPage());
+                    builder: (context) => const AddressDetailPage());
                 Navigator.push(context, route).then(onGoBack);
               },
             ),
@@ -127,7 +125,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
               ),
               onTap: () {
                 Route route = MaterialPageRoute(
-                    builder: (context) => AddressDetailPage());
+                    builder: (context) => const AddressDetailPage());
                 Navigator.push(context, route).then(onGoBack);
               },
             ),
@@ -207,28 +205,26 @@ class _AddressListScreenState extends State<AddressListScreen> {
                           ),
                           child: Row(
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Route route = MaterialPageRoute(
-                                      builder: (context) => AddressEditPage(
-                                          data[index]['id_address']));
-                                  Navigator.push(context, route).then(onGoBack);
-                                },
-                                child: SizedBox(
-                                  width: 250,
-                                  height: 40,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
+                              SizedBox(
+                                width: 250,
+                                height: 40,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    onPressed: null,
-                                    child: Text(
-                                      "Ubah Alamat",
-                                      style: TextStyle(
-                                          color: AppColors.hintTextColor),
-                                    ),
+                                    backgroundColor: AppColors.buttonBackground,
+                                  ),
+                                  onPressed: () {
+                                    Route route = MaterialPageRoute(
+                                        builder: (context) => AddressEditPage(
+                                            data[index]['id_address']));
+                                    Navigator.push(context, route)
+                                        .then(onGoBack);
+                                  },
+                                  child: Text(
+                                    "Ubah Alamat",
+                                    style: TextStyle(color: AppColors.white),
                                   ),
                                 ),
                               ),

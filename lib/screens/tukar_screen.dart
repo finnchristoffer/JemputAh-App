@@ -1,16 +1,11 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/API/FetchData.dart';
 import 'package:jemputah_app/constants/color.dart';
-import 'package:jemputah_app/constants/images.dart';
-import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/components/dl_alert.dart';
 import 'package:jemputah_app/API/ShopService.dart';
 import 'package:jemputah_app/constants/variable.dart';
-import 'package:jemputah_app/models/user_transaction.dart';
-
-import '../extensions/date_time_converter.dart';
+import 'package:jemputah_app/extensions/date_time_converter.dart';
 
 class Tukar extends StatefulWidget {
   const Tukar({super.key});
@@ -20,7 +15,7 @@ class Tukar extends StatefulWidget {
 }
 
 class TukarPage extends State<Tukar> {
-  var jml_koin_user = 0;
+  int jmlKoinUser = 0;
   var dateNow = DateTime.now().toString();
   var firestore = FirebaseFirestore.instance;
 
@@ -41,24 +36,24 @@ class TukarPage extends State<Tukar> {
     var user = FetchData().fetchMapData("user", uid);
     user.then((value) {
       setState(() {
-        jml_koin_user = value["jml_koin_user"];
+        jmlKoinUser = value["jml_koin_user"];
       });
     });
   }
 
   void uploadTransaction(int i) {
-    final UserTransaction = <String, dynamic>{
+    final userTransaction = <String, dynamic>{
       'id_user': uid,
       'tgl_transaksi_user': dateTimeConverter.formatWithoutDay(dateNow),
       'id_shop': data[i]['id_shop'],
     };
-    firestore.collection('user_transaction').add(UserTransaction);
+    firestore.collection('user_transaction').add(userTransaction);
   }
 
   // make void for calculate point by point - price and update to firebase
   void updatePoint(int i) {
-    var point = jml_koin_user - data[i]['price'];
-    firestore.collection('user').doc(uid).update({'jml_koin_user': point});
+    var point = jmlKoinUser - data[i]['price'];
+    firestore.collection('user').doc(uid).update({'jmlKoinUser': point});
   }
 
   @override
@@ -71,7 +66,7 @@ class TukarPage extends State<Tukar> {
   @override
   Widget build(BuildContext context) {
     //variable contain int number point
-    int point = jml_koin_user;
+    int point = jmlKoinUser;
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -84,8 +79,8 @@ class TukarPage extends State<Tukar> {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 40, left: 45),
-                  child: Text(
+                  margin: const EdgeInsets.only(top: 40, left: 45),
+                  child: const Text(
                     "Total Poin",
                     style: TextStyle(
                         color: Colors.black,
@@ -93,12 +88,12 @@ class TukarPage extends State<Tukar> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
-                  margin: EdgeInsets.only(top: 40, right: 60),
+                  margin: const EdgeInsets.only(top: 40, right: 60),
                   child: Text(
-                    point.toString() + "   Koin",
-                    style: TextStyle(
+                    "$point   Koin",
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
@@ -118,9 +113,7 @@ class TukarPage extends State<Tukar> {
                     onTap: () {
                       final alertTitles = ["Konfirmasi"];
                       final alertDetailPesanan =
-                          "Apakah anda yakin ingin melakukan transaksi voucher " +
-                              data[i]['title'] +
-                              " ?";
+                          "Apakah anda yakin ingin melakukan transaksi voucher ${data[i]['title']} ?";
                       DLAlert(
                           cancelTitle: 'Batalkan',
                           alertTitle: 'Konfirmasi Penukaran',
@@ -137,7 +130,7 @@ class TukarPage extends State<Tukar> {
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: Colors.black,
                         ),
                       ),
@@ -146,8 +139,8 @@ class TukarPage extends State<Tukar> {
                           borderRadius: BorderRadius.circular(20),
                           //make border
                         ),
-                        margin: EdgeInsets.all(5),
-                        padding: EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: Stack(
                           children: [
                             Column(
@@ -165,7 +158,7 @@ class TukarPage extends State<Tukar> {
                                       const EdgeInsets.only(bottom: 5, top: 5),
                                   child: Text(
                                     data[i]['title'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -175,16 +168,16 @@ class TukarPage extends State<Tukar> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Text(
                                     data[i]['desc'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 15,
                                     ),
                                   ),
                                 ),
                                 Text(
-                                  data[i]['price'].toString() + " Koin",
+                                  "${data[i]['price']} Koin",
                                   textAlign: TextAlign.right,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
                                   ),
@@ -197,7 +190,7 @@ class TukarPage extends State<Tukar> {
                     ),
                   );
                 },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1.0,
                   crossAxisSpacing: 0.0,

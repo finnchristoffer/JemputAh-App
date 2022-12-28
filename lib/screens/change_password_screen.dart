@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
@@ -9,7 +11,7 @@ class SettingUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Setting UI',
       home: ChangePasswordPage(),
@@ -18,16 +20,16 @@ class SettingUI extends StatelessWidget {
 }
 
 class ChangePasswordPage extends StatefulWidget {
-  ChangePasswordPage({super.key});
+  const ChangePasswordPage({super.key});
 
   @override
-  _ChangePasswordState createState() => _ChangePasswordState();
+  ChangePasswordState createState() => ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePasswordPage> {
-  TextEditingController _oldPasswordTextController = TextEditingController();
-  TextEditingController _newPasswordTextController = TextEditingController();
-  TextEditingController _newSecondPasswordTextController =
+class ChangePasswordState extends State<ChangePasswordPage> {
+  final TextEditingController _oldPasswordTextController = TextEditingController();
+  final TextEditingController _newPasswordTextController = TextEditingController();
+  final TextEditingController _newSecondPasswordTextController =
       TextEditingController();
 
   var newPassword = '';
@@ -49,7 +51,7 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
       });
       FirebaseAuth.instance.signOut();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
       const snackBar = SnackBar(
         content: Text('Kata Sandi Berhasil Diubah, Silahkan Masuk Kembali.'),
       );
@@ -83,7 +85,7 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
         title: const Text('Ubah Sandi'),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 30, right: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30),
         child: ListView(
           children: [
             const SizedBox(

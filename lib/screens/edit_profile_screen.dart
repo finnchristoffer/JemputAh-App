@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/API/FetchData.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/images.dart';
-import '../constants/variable.dart';
+import 'package:jemputah_app/constants/variable.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -23,14 +23,15 @@ class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
   @override
-  _EditProfilePageState createState() => _EditProfilePageState();
+  EditProfilePageState createState() => EditProfilePageState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class EditProfilePageState extends State<EditProfilePage> {
   var db = FirebaseFirestore.instance;
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _phoneNumberTextController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _phoneNumberTextController =
+      TextEditingController();
 
   void setProfile() {
     var profile = FetchData().fetchMapData('user', uid);
@@ -59,7 +60,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         title: const Text('Ubah Profil'),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 30, right: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30),
         child: ListView(
           children: [
             const SizedBox(
@@ -79,10 +80,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             spreadRadius: 2,
                             blurRadius: 10,
                             color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0, 10)),
+                            offset: const Offset(0, 10)),
                       ],
                       shape: BoxShape.circle,
-                      image: DecorationImage(
+                      image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(profilePicture))),
                 ),

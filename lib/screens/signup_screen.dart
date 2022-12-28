@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/images.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
-import './login_screen.dart';
+import 'package:jemputah_app/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jemputah_app/reuseable_widget/reuseable_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,10 +16,10 @@ class SignUpScreen extends StatefulWidget {
 
 class InitState extends State<SignUpScreen> {
   final firestore = FirebaseFirestore.instance;
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _phoneNumberTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _phoneNumberTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
