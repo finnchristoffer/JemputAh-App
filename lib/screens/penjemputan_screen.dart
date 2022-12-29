@@ -558,13 +558,14 @@ class InitState extends State<PenjemputanScreen> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return const AlertDialog(
-                          title: Text(
+                        return AlertDialog(
+                          backgroundColor: AppColors.secondaryBorder,
+                          title: const Text(
                             "Error",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.black),
                           ),
-                          content: Text(
+                          content: const Text(
                             "Mohon isi terlebih dahulu berat sampah daur ulang.",
                             textAlign: TextAlign.center,
                           ),
@@ -573,6 +574,22 @@ class InitState extends State<PenjemputanScreen> {
                 } else {
                   setDriver(timeConverter.format(waktuPengambilan));
                   aturPenjemputan();
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.secondaryBorder,
+                          title: const Text(
+                            "Berhasil",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: const Text(
+                            "Pemesanan Anda sudah berhasil.",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      });
                 }
               },
               child: Container(

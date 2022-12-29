@@ -29,7 +29,8 @@ class AddressDetailState extends State<AddressDetailPage> {
   final TextEditingController _addressTextController = TextEditingController();
   final TextEditingController _districtTextController = TextEditingController();
   final TextEditingController _cityTextController = TextEditingController();
-  final TextEditingController _postalCodeTextController = TextEditingController();
+  final TextEditingController _postalCodeTextController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -131,13 +132,14 @@ class AddressDetailState extends State<AddressDetailPage> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return const AlertDialog(
-                          title: Text(
+                        return AlertDialog(
+                          backgroundColor: AppColors.secondaryBorder,
+                          title: const Text(
                             "Error",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.black),
                           ),
-                          content: Text(
+                          content: const Text(
                             "Tolong isi kolom yang masih kosong terlebih dahulu.",
                             textAlign: TextAlign.center,
                           ),

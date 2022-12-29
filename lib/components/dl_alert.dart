@@ -29,6 +29,7 @@ class DLAlert {
           actions: actions);
     } else {
       return AlertDialog(
+          backgroundColor: AppColors.secondaryBorder,
           title: Text(
             alertTitle,
             style: TextStyle(color: AppColors.black),

@@ -29,8 +29,9 @@ class InitState extends State<ForgotPasswordScreen> {
       showDialog(
           context: context,
           builder: (context) {
-            return const AlertDialog(
-              content: Text(
+            return AlertDialog(
+              backgroundColor: AppColors.secondaryBorder,
+              content: const Text(
                   'Email Pengaturan Ulang Kata Sandi sudah terkirim. Silahkan Cek Email Anda.'),
             );
           });
@@ -39,6 +40,7 @@ class InitState extends State<ForgotPasswordScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
+              backgroundColor: AppColors.secondaryBorder,
               content: Text(e.message.toString()),
             );
           });
