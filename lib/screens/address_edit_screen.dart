@@ -24,7 +24,8 @@ class InitState extends State<AddressEditPage> {
   final TextEditingController _addressTextController = TextEditingController();
   final TextEditingController _districtTextController = TextEditingController();
   final TextEditingController _cityTextController = TextEditingController();
-  final TextEditingController _postalCodeTextController = TextEditingController();
+  final TextEditingController _postalCodeTextController =
+      TextEditingController();
 
   void setAddress() {
     var address = FetchData().fetchMapData('address', idAddress);
@@ -148,13 +149,14 @@ class InitState extends State<AddressEditPage> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return const AlertDialog(
-                          title: Text(
+                        return AlertDialog(
+                          backgroundColor: AppColors.secondaryBorder,
+                          title: const Text(
                             "Error",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.black),
                           ),
-                          content: Text(
+                          content: const Text(
                             "Tolong isi kolom yang masih kosong terlebih dahulu.",
                             textAlign: TextAlign.center,
                           ),

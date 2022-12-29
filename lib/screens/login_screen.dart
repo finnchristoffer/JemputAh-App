@@ -100,13 +100,16 @@ class InitState extends State<LoginScreen> {
                       email: _emailTextController.text,
                       password: _passwordTextController.text)
                   .then((value) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const BaseScreen()));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BaseScreen()));
               }).onError((error, stackTrace) {
                 showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
+                        backgroundColor: AppColors.secondaryBorder,
                         title: const Text(
                           "Error",
                           textAlign: TextAlign.center,

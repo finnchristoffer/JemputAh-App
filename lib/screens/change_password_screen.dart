@@ -27,8 +27,10 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class ChangePasswordState extends State<ChangePasswordPage> {
-  final TextEditingController _oldPasswordTextController = TextEditingController();
-  final TextEditingController _newPasswordTextController = TextEditingController();
+  final TextEditingController _oldPasswordTextController =
+      TextEditingController();
+  final TextEditingController _newPasswordTextController =
+      TextEditingController();
   final TextEditingController _newSecondPasswordTextController =
       TextEditingController();
 
@@ -50,8 +52,8 @@ class ChangePasswordState extends State<ChangePasswordPage> {
         currentUser!.updatePassword(newPassword);
       });
       FirebaseAuth.instance.signOut();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
       const snackBar = SnackBar(
         content: Text('Kata Sandi Berhasil Diubah, Silahkan Masuk Kembali.'),
       );
@@ -60,13 +62,14 @@ class ChangePasswordState extends State<ChangePasswordPage> {
       showDialog(
           context: context,
           builder: (context) {
-            return const AlertDialog(
-              title: Text(
+            return AlertDialog(
+              backgroundColor: AppColors.secondaryBorder,
+              title: const Text(
                 "Error",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black),
               ),
-              content: Text(
+              content: const Text(
                 "Password lama tidak sesuai. Tolong cek kembali",
                 textAlign: TextAlign.center,
               ),
@@ -154,13 +157,14 @@ class ChangePasswordState extends State<ChangePasswordPage> {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return const AlertDialog(
-                            title: Text(
+                          return AlertDialog(
+                            backgroundColor: AppColors.secondaryBorder,
+                            title: const Text(
                               "Error",
                               textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.black),
                             ),
-                            content: Text(
+                            content: const Text(
                               "Password baru dan konfirmasinya masih belum sama. Tolong cek kembali.",
                               textAlign: TextAlign.center,
                             ),
