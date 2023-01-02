@@ -83,7 +83,6 @@ class _ProfileCard extends StatelessWidget {
                           builder: (context) => const LoginScreen()));
                 });
                 setVariable('');
-                print(uid);
               }
             : () => Navigator.push(
                   context,
