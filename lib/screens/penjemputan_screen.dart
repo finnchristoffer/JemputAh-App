@@ -114,7 +114,7 @@ class InitState extends State<PenjemputanScreen> {
     final jemput = <String, dynamic>{
       "address": lokasiPengambilan,
       "date": dateTimeConverter.format(dateNow),
-      "done": false,
+      "ongoing": true,
       "id_driver": idDriver,
       "id_sampah": idSampah,
       "id_user": uid,
@@ -122,6 +122,7 @@ class InitState extends State<PenjemputanScreen> {
       "total_berat": _totalBerat,
       "total_koin_driver": setDriverCoin(_totalBerat),
       "total_koin_user": _totalPendapatan,
+      "is_pickup_done": false,
     };
     DocumentReference ref = await db.collection("jemput").add(jemput);
     idJemput = ref.id.toString();
