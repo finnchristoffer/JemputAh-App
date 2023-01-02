@@ -9,7 +9,7 @@ class FetchDataJemput {
     var query = await FirebaseFirestore.instance
         .collection("jemput")
         .where("id_user", isEqualTo: id)
-        .where("done", isEqualTo: true)
+        .where("ongoing", isEqualTo: false)
         .get();
     List<DocumentSnapshot> documents = query.docs;
     for (DocumentSnapshot snapshot in documents) {
@@ -25,7 +25,7 @@ class FetchDataJemput {
     var query = await FirebaseFirestore.instance
         .collection("jemput")
         .where("id_user", isEqualTo: id)
-        .where("done", isEqualTo: false)
+        .where("ongoing", isEqualTo: true)
         .get();
     List<DocumentSnapshot> documents = query.docs;
     for (DocumentSnapshot snapshot in documents) {

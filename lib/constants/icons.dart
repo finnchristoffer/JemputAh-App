@@ -18,3 +18,4 @@ const iconKaca = '$_pathIcon/icon_kaca.png';
 const iconKaleng = '$_pathIcon/icon_kaleng.png';
 const iconTelpon = '$_pathIcon/iconTelepon.png';
 const iconDelete = '$_pathIcon/icon_delete.png';
+const iconPesananBatal = '$_pathIcon/pesanan_batal.png';
