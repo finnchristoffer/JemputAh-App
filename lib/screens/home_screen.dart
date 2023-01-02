@@ -53,7 +53,8 @@ class _LeadAppBar extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 5),
-          width: 200,
+          width: 180,
+          height: 50,
           child: Image.asset(
             homeLogo,
           ),
@@ -151,7 +152,7 @@ class _JemputBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                  width: 150,
+                  width: 180,
                   height: 30,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,

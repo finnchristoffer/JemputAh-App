@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jemputah_app/constants/color.dart';
+import 'package:jemputah_app/constants/variable.dart';
 import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:jemputah_app/screens/forgot_password_screen.dart';
 import 'package:jemputah_app/screens/signup_screen.dart';
@@ -104,6 +106,34 @@ class InitState extends State<LoginScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const BaseScreen()));
+                FirebaseFirestore.instance
+                    .collection('user')
+                    .doc(uid)
+                    .get()
+                    .then((doc) {
+                  if (doc.exists) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: AppColors.secondaryBorder,
+                            title: const Text(
+                              "Error",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            content: const Text(
+                              "Sepertinya akun Anda tidak terdaftar pada aplikasi User, silahkan coba login pada aplikasi Driver.",
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        });
+                  }
+                });
               }).onError((error, stackTrace) {
                 showDialog(
                     context: context,
