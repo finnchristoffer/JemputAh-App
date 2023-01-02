@@ -106,12 +106,13 @@ class InitState extends State<LoginScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const BaseScreen()));
+                setVariable(FirebaseAuth.instance.currentUser?.uid);
                 FirebaseFirestore.instance
                     .collection('user')
                     .doc(uid)
                     .get()
                     .then((doc) {
-                  if (doc.exists) {
+                  if (!doc.exists) {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
