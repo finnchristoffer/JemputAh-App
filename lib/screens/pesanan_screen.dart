@@ -67,7 +67,6 @@ class PesananPage extends State<Pesanan> {
       return Scaffold(
           backgroundColor: AppColors.backgroundGreen,
           appBar: AppBar(
-            //make background color black
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.mainGreen,
             title: const Text('Pesanan'),
@@ -76,20 +75,37 @@ class PesananPage extends State<Pesanan> {
           body: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return Card(
-                    color: AppColors.backgroundGreen,
-                    child: ListTile(
-                      //set title with style bold
-                      title: const Text('Pesanan Selesai',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(
-                          '${timeCodeConverterHour.timeCodeConverterHour(data[index]['time_code'])} | ${data[index]['date']}'),
-                      leading: Image.asset(
-                        iconPesananSelesai,
-                        width: 50,
-                        height: 50,
-                      ),
-                    ));
+                if (data[index]['is_pickup_done'] == true) {
+                  return Card(
+                      color: AppColors.backgroundGreen,
+                      child: ListTile(
+                        //set title with style bold
+                        title: const Text('Pesanan Selesai',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            '${timeCodeConverterHour.timeCodeConverterHour(data[index]['time_code'])} | ${data[index]['date']}'),
+                        leading: Image.asset(
+                          iconPesananSelesai,
+                          width: 50,
+                          height: 50,
+                        ),
+                      ));
+                } else {
+                  return Card(
+                      color: AppColors.backgroundGreen,
+                      child: ListTile(
+                        //set title with style bold
+                        title: const Text('Pesanan Batal',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            '${timeCodeConverterHour.timeCodeConverterHour(data[index]['time_code'])} | ${data[index]['date']}'),
+                        leading: Image.asset(
+                          iconPesananBatal,
+                          width: 50,
+                          height: 50,
+                        ),
+                      ));
+                }
               }));
     }
   }
