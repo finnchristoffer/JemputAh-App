@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:jemputah_app/API/FetchDataJemput.dart';
+import 'package:jemputah_app/API/FetchTotalBerat.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:jemputah_app/constants/images.dart';
@@ -23,7 +24,6 @@ class _HistoryTransactionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       padding: const EdgeInsets.only(
-        bottom: 40,
         right: 15,
       ),
       icon: Image.asset(
@@ -40,52 +40,16 @@ class _HistoryTransactionButton extends StatelessWidget {
   }
 }
 
-class _LeadAppBar extends StatelessWidget {
-  final String username;
-
-  const _LeadAppBar(
-    this.username,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 5),
-          width: 180,
-          height: 50,
-          child: Image.asset(
-            homeLogo,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 15,
-            left: 15,
-          ),
-          child: Text(
-            "Hai, $username",
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: 12,
-            ),
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _JemputBox extends StatelessWidget {
   final dynamic berat;
-  final dynamic jmlJemput;
+  final dynamic totalBerat;
   final dynamic koin;
+  final String username;
 
   const _JemputBox(
+    this.username,
     this.koin,
-    this.jmlJemput,
+    this.totalBerat,
     this.berat,
   );
 
@@ -112,8 +76,8 @@ class _JemputBox extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             margin: const EdgeInsets.only(
-              left: 35,
-              right: 35,
+              left: 15,
+              right: 15,
               top: 30,
             ),
             height: 35,
@@ -121,8 +85,21 @@ class _JemputBox extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10),
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    username,
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontSize: 21,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    right: 10,
+                  ),
                   child: Text(
                     koin.toString(),
                     textAlign: TextAlign.left,
@@ -152,7 +129,7 @@ class _JemputBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                  width: 180,
+                  width: 150,
                   height: 30,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -162,7 +139,7 @@ class _JemputBox extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 13),
                         child: Text(
-                          "$jmlJemput Jemput",
+                          "$berat Kg",
                         ),
                       ),
                       const VerticalDivider(
@@ -171,7 +148,7 @@ class _JemputBox extends StatelessWidget {
                         color: Colors.black,
                       ),
                       Text(
-                        "$berat Kg",
+                        "$totalBerat Kg",
                       ),
                     ],
                   )),
@@ -181,14 +158,11 @@ class _JemputBox extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return const PenjemputanScreen();
-                        },
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute<void>(
+                      builder: (BuildContext context) {
+                        return const PenjemputanScreen();
+                      },
+                    ));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.buttonBackground,
@@ -452,9 +426,28 @@ class _JadwalJemput extends StatelessWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var username = "Account";
   var jmlKoinUser = 0;
-  var jmlJemput = 0;
+  dynamic totalBerat = 0.0;
   dynamic jmlBerat = 0;
   List<Map<String, dynamic>> data = [];
+  List<Map<String, dynamic>> dataBerat = [];
+
+  void setTotalBerat() {
+    int index = 0;
+    int i = 0;
+    var berat = FetchDataBerat().fetchListBerat();
+    berat.then((value) {
+      setState(() {
+        if (value.isEmpty) {
+          totalBerat = 0;
+        } else {
+          index = value.length;
+          for (i; i < index; i++) {
+            totalBerat += value[i]["total_berat"];
+          }
+        }
+      });
+    });
+  }
 
   void setJemput() {
     var penjemputan = FetchDataJemput().fetchListJemputNotDone(uid);
@@ -471,7 +464,6 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         username = value["name_user"];
         jmlKoinUser = value["jml_koin_user"];
-        jmlJemput = value["jml_jemput"];
         jmlBerat = value["jml_berat"];
       });
     });
@@ -482,6 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     set();
     setJemput();
+    setTotalBerat();
   }
 
   @override
@@ -493,10 +486,13 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.backgroundGreen,
         toolbarHeight: 87,
         elevation: 0,
-        leading: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_LeadAppBar(username)],
+        leading: Container(
+          margin: const EdgeInsets.only(top: 5),
+          width: 180,
+          height: 50,
+          child: Image.asset(
+            homeLogo,
+          ),
         ),
         actions: [
           _HistoryTransactionButton(),
@@ -508,7 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 children: [
-                  _JemputBox(jmlKoinUser, jmlJemput, jmlBerat),
+                  _JemputBox(username, jmlKoinUser, totalBerat, jmlBerat),
                   _Carousel(),
                   _JadwalJemput(data),
                 ],
