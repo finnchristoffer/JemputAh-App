@@ -82,6 +82,7 @@ class _ProfileCard extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const LoginScreen()));
                 });
+                setVariable('');
               }
             : () => Navigator.push(
                   context,
