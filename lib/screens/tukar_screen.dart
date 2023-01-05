@@ -53,7 +53,7 @@ class TukarPage extends State<Tukar> {
   // make void for calculate point by point - price and update to firebase
   void updatePoint(int i) {
     var point = jmlKoinUser - data[i]['price'];
-    firestore.collection('user').doc(uid).update({'jmlKoinUser': point});
+    firestore.collection('user').doc(uid).update({'jml_koin_user': point});
   }
 
   @override

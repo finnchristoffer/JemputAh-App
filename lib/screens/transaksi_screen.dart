@@ -14,28 +14,30 @@ class TransaksiScreen extends StatefulWidget {
 
 class _TransaksiScreenState extends State<TransaksiScreen> {
   List<Map<String, dynamic>> dataTransaksi = [];
-  List shopTitle = ['Title'];
-  List shopPrice = [0];
+  List shopTitle = [];
+  List shopPrice = [];
 
   void setShop(int index, String idShop) {
     var shop = FetchData().fetchMapData('shop', idShop);
     shop.then((value) {
       setState(() {
-        shopTitle[index] = value['title'];
-        shopPrice[index] = value['price'];
+        shopTitle.add(value['title']);
+        shopPrice.add(value['price']);
       });
     });
   }
 
   void setTransaksi() {
+    var i = 0;
     var index = 0;
     var penjemputan = FetchData().fetchListData('user_transaction', uid);
     penjemputan.then((value) {
       setState(() {
         dataTransaksi = value;
-        for (var element in value) {
-          setShop(index, element['id_shop']);
-          index += 1;
+        index = value.length;
+
+        for (i; i < index; i++) {
+          setShop(i, value[i]['id_shop']);
         }
       });
     });

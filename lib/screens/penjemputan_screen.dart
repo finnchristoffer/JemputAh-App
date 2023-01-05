@@ -127,9 +127,6 @@ class InitState extends State<PenjemputanScreen> {
     DocumentReference ref = await db.collection("jemput").add(jemput);
     idJemput = ref.id.toString();
     db.collection("driver").doc(idDriver).update({'slot_$timecode': idJemput});
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const BaseScreen()));
   }
 
   Widget _incrementWeight(int index) {
@@ -575,6 +572,10 @@ class InitState extends State<PenjemputanScreen> {
                 } else {
                   setDriver(timeConverter.format(waktuPengambilan));
                   aturPenjemputan();
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BaseScreen()));
                   showDialog(
                       context: context,
                       builder: (context) {
