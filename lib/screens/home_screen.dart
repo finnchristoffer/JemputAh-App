@@ -358,8 +358,8 @@ class _JadwalJemput extends StatelessWidget {
                     ),
                     child: Image.asset(
                       iconJadwal,
-                      width: 64,
-                      height: 64,
+                      width: 55,
+                      height: 55,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -373,9 +373,9 @@ class _JadwalJemput extends StatelessWidget {
                       size: 60,
                     ),
                   ),
-                  minLeadingWidth: 64,
+                  minLeadingWidth: 75,
                   dense: true,
-                  horizontalTitleGap: 8.5,
+                  horizontalTitleGap: 5,
                   onTap: () => {
                     Navigator.push(
                       context,
