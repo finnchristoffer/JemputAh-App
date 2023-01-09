@@ -234,7 +234,7 @@ class InitState extends State<PenjemputanScreen> {
                     ),
                   ),
                   const SizedBox(
-                    width: 50,
+                    width: 70,
                     child: Text('Plastik'),
                   ),
                   Container(
@@ -242,7 +242,7 @@ class InitState extends State<PenjemputanScreen> {
                     child: Row(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 84, right: 18),
+                          margin: const EdgeInsets.only(left: 64, right: 18),
                           height: 30,
                           width: 30,
                           child: _decrementWeight(0),
@@ -285,7 +285,7 @@ class InitState extends State<PenjemputanScreen> {
                     ),
                   ),
                   const SizedBox(
-                    width: 50,
+                    width: 70,
                     child: Text('Karton'),
                   ),
                   Container(
@@ -293,7 +293,7 @@ class InitState extends State<PenjemputanScreen> {
                     child: Row(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 84, right: 18),
+                          margin: const EdgeInsets.only(left: 64, right: 18),
                           height: 30,
                           width: 30,
                           child: _decrementWeight(1),
@@ -337,7 +337,7 @@ class InitState extends State<PenjemputanScreen> {
                     ),
                   ),
                   const SizedBox(
-                    width: 50,
+                    width: 70,
                     child: Text('Kaca'),
                   ),
                   Container(
@@ -345,7 +345,7 @@ class InitState extends State<PenjemputanScreen> {
                     child: Row(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 84, right: 18),
+                          margin: const EdgeInsets.only(left: 64, right: 18),
                           height: 30,
                           width: 30,
                           child: _decrementWeight(2),
@@ -389,7 +389,7 @@ class InitState extends State<PenjemputanScreen> {
                     ),
                   ),
                   const SizedBox(
-                    width: 50,
+                    width: 70,
                     child: Text('Kaleng'),
                   ),
                   Container(
@@ -397,7 +397,7 @@ class InitState extends State<PenjemputanScreen> {
                     child: Row(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 84, right: 18),
+                          margin: const EdgeInsets.only(left: 64, right: 18),
                           height: 30,
                           width: 30,
                           child: _decrementWeight(3),
