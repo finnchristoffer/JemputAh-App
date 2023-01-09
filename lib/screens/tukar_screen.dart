@@ -41,6 +41,17 @@ class TukarPage extends State<Tukar> {
     });
   }
 
+  void validationCoin(int i) {
+    if (jmlKoinUser < data[i]['price']) {
+      const snackBar = SnackBar(
+        content: Text('Koin anda tidak mencukupi'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      uploadTransaction(i);
+    }
+  }
+
   void uploadTransaction(int i) {
     final userTransaction = <String, dynamic>{
       'id_user': uid,
@@ -48,6 +59,11 @@ class TukarPage extends State<Tukar> {
       'id_shop': data[i]['id_shop'],
     };
     firestore.collection('user_transaction').add(userTransaction);
+
+    setState(() {
+      updatePoint(i);
+      setUser();
+    });
   }
 
   // make void for calculate point by point - price and update to firebase
@@ -120,11 +136,7 @@ class TukarPage extends State<Tukar> {
                           alertDetailMessage: alertDetailPesanan,
                           alertActionTitles: alertTitles,
                           onAlertAction: (int selectedActionIndex) {
-                            uploadTransaction(i);
-                            setState(() {
-                              updatePoint(i);
-                              setUser();
-                            });
+                            validationCoin(i);
                           }).show(context);
                     },
                     child: Card(
