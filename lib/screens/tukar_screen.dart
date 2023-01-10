@@ -84,134 +84,135 @@ class TukarPage extends State<Tukar> {
     //variable contain int number point
     int point = jmlKoinUser;
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: AppColors.mainGreen,
-          title: const Text('Tukar Page'),
-          centerTitle: false,
-        ),
-        body: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 40, left: 45),
-                  child: const Text(
-                    "Total Poin",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.mainGreen,
+        title: const Text('Tukar Page'),
+        centerTitle: false,
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 40, left: 45),
+                child: const Text(
+                  "Total Poin",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
-                const Spacer(),
-                Container(
-                  margin: const EdgeInsets.only(top: 40, right: 60),
-                  child: Text(
-                    "$point   Koin",
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
+              ),
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.only(top: 40, right: 60),
+                child: Text(
+                  "$point   Koin",
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
-              ],
-            ),
-            Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(right: 15, left: 15, bottom: 50),
-                itemCount: data.length,
-                //change gridview background color
+              ),
+            ],
+          ),
+          Expanded(
+            child: GridView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(right: 15, left: 15, bottom: 50),
+              itemCount: data.length,
+              //change gridview background color
 
-                itemBuilder: (ctx, i) {
-                  return GestureDetector(
-                    onTap: () {
-                      final alertTitles = ["Konfirmasi"];
-                      final alertDetailPesanan =
-                          "Apakah anda yakin ingin melakukan transaksi voucher ${data[i]['title']} ?";
-                      DLAlert(
-                          cancelTitle: 'Batalkan',
-                          alertTitle: 'Konfirmasi Penukaran',
-                          alertDetailMessage: alertDetailPesanan,
-                          alertActionTitles: alertTitles,
-                          onAlertAction: (int selectedActionIndex) {
-                            validationCoin(i);
-                          }).show(context);
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        side: const BorderSide(
-                          color: Colors.black,
-                        ),
+              itemBuilder: (ctx, i) {
+                return GestureDetector(
+                  onTap: () {
+                    final alertTitles = ["Konfirmasi"];
+                    final alertDetailPesanan =
+                        "Apakah anda yakin ingin melakukan transaksi voucher ${data[i]['title']} ?";
+                    DLAlert(
+                        cancelTitle: 'Batalkan',
+                        alertTitle: 'Konfirmasi Penukaran',
+                        alertDetailMessage: alertDetailPesanan,
+                        alertActionTitles: alertTitles,
+                        onAlertAction: (int selectedActionIndex) {
+                          validationCoin(i);
+                        }).show(context);
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(
+                        color: Colors.black,
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          //make border
-                        ),
-                        margin: const EdgeInsets.all(5),
-                        padding: const EdgeInsets.all(5),
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              // mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Image.network(
-                                    data[i]['logo'],
-                                    fit: BoxFit.fill,
-                                  ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        //make border
+                      ),
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Expanded(
+                                child: Image.network(
+                                  data[i]['logo'],
+                                  fit: BoxFit.fill,
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(bottom: 5, top: 5),
-                                  child: Text(
-                                    data[i]['title'],
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Text(
-                                    data[i]['desc'],
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "${data[i]['price']} Koin",
-                                  textAlign: TextAlign.right,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 5, top: 5),
+                                child: Text(
+                                  data[i]['title'],
                                   style: const TextStyle(
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  data[i]['desc'],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
                                     fontSize: 15,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                              Text(
+                                "${data[i]['price']} Koin",
+                                textAlign: TextAlign.right,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.0,
-                  crossAxisSpacing: 0.0,
-                  mainAxisSpacing: 5,
-                  mainAxisExtent: 280,
-                ),
+                  ),
+                );
+              },
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1.0,
+                crossAxisSpacing: 0.0,
+                mainAxisSpacing: 5,
+                mainAxisExtent: 280,
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+      backgroundColor: AppColors.backgroundGreen,
+    );
   }
 }
