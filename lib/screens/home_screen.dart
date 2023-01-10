@@ -45,12 +45,14 @@ class _JemputBox extends StatelessWidget {
   final dynamic totalBerat;
   final dynamic koin;
   final String username;
+  final dynamic onGoBack;
 
   const _JemputBox(
     this.username,
     this.koin,
     this.totalBerat,
     this.berat,
+    this.onGoBack,
   );
 
   @override
@@ -158,11 +160,9 @@ class _JemputBox extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute<void>(
-                      builder: (BuildContext context) {
-                        return const PenjemputanScreen();
-                      },
-                    ));
+                    Route route = MaterialPageRoute(
+                        builder: (context) => const PenjemputanScreen());
+                    Navigator.push(context, route).then(onGoBack);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.buttonBackground,
@@ -469,6 +469,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  onGoBack(dynamic value) {
+    setState(() {
+      setJemput();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -504,7 +510,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 children: [
-                  _JemputBox(username, jmlKoinUser, totalBerat, jmlBerat),
+                  _JemputBox(
+                    username,
+                    jmlKoinUser,
+                    totalBerat,
+                    jmlBerat,
+                    onGoBack,
+                  ),
                   _Carousel(),
                   _JadwalJemput(data),
                 ],

@@ -4,7 +4,6 @@ import 'package:jemputah_app/API/FetchDataDriver.dart';
 import 'package:jemputah_app/constants/color.dart';
 import 'package:jemputah_app/constants/icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jemputah_app/screens/base_screen.dart';
 import 'package:jemputah_app/extensions/time_code_converter.dart';
 import 'package:jemputah_app/extensions/date_time_converter.dart';
 import 'package:jemputah_app/API/FetchData.dart';
@@ -86,18 +85,18 @@ class InitState extends State<PenjemputanScreen> {
     });
   }
 
-  void setDriver(int timecode) {
+  Future<void> setDriver(int timecode) async {
     Random random = Random();
-    var driver = FetchDataDriver().fetchListDriver(timecode);
-    driver.then((value) {
-      setState(() {
-        if (value.length > 1) {
-          int num = random.nextInt(value.length);
-          idDriver = value[num]['id_driver'];
-        } else {
-          idDriver = value[0]['id_driver'];
-        }
-      });
+    var driver = await FetchDataDriver().fetchListDriver(timecode);
+    setState(() {
+      if (driver.length > 1) {
+        int num = random.nextInt(driver.length);
+        idDriver = driver[num]['id_driver'];
+      } else if (driver.isEmpty) {
+        idDriver = "";
+      } else {
+        idDriver = driver[0]['id_driver'];
+      }
     });
   }
 
@@ -127,6 +126,54 @@ class InitState extends State<PenjemputanScreen> {
     DocumentReference ref = await db.collection("jemput").add(jemput);
     idJemput = ref.id.toString();
     db.collection("driver").doc(idDriver).update({'slot_$timecode': idJemput});
+  }
+
+  void driverValidation(String idDrive) {
+    if (idDrive.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: AppColors.secondaryBorder,
+              title: const Text(
+                "Warning",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black),
+              ),
+              content: const Text(
+                "Saat ini Driver kami sedang tidak tersedia untuk waktu tersebut\n Mohon coba mengganti waktu yang dipilih",
+                textAlign: TextAlign.center,
+              ),
+            );
+          });
+    } else {
+      aturPenjemputan();
+      Navigator.pop(
+        context,
+      );
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: AppColors.secondaryBorder,
+            title: const Text(
+              "Berhasil",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black),
+            ),
+            content: const Text(
+              "Pemesanan Anda sudah berhasil.",
+              textAlign: TextAlign.center,
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  void dataUploading(String waktu) async {
+    await setDriver(timeConverter.format(waktu));
+    driverValidation(idDriver);
   }
 
   Widget _incrementWeight(int index) {
@@ -570,28 +617,7 @@ class InitState extends State<PenjemputanScreen> {
                         );
                       });
                 } else {
-                  setDriver(timeConverter.format(waktuPengambilan));
-                  aturPenjemputan();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BaseScreen()));
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: AppColors.secondaryBorder,
-                          title: const Text(
-                            "Berhasil",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          content: const Text(
-                            "Pemesanan Anda sudah berhasil.",
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      });
+                  dataUploading(waktuPengambilan);
                 }
               },
               child: Container(
