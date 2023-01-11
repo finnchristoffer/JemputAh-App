@@ -64,12 +64,12 @@ class _JemputBox extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color.fromRGBO(178, 186, 159, 1),
+          color: AppColors.secondaryBorder,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
-        color: const Color.fromRGBO(178, 186, 159, 1),
+        color: AppColors.secondaryBorder,
       ),
       child: Column(
         children: [

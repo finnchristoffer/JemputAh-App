@@ -105,7 +105,7 @@ class InitState extends State<ForgotPasswordScreen> {
                 alignment: Alignment.center,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(62, 75, 42, 1),
+                  color: AppColors.buttonBackground,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: const [
                     BoxShadow(

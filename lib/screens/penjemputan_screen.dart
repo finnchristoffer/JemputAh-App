@@ -192,7 +192,7 @@ class InitState extends State<PenjemputanScreen> {
 
   Widget initWidget() {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 246, 233, 1),
+      backgroundColor: AppColors.backgroundGreen,
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
         backgroundColor: AppColors.mainGreen,
@@ -214,7 +214,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -265,7 +265,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -317,7 +317,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -369,7 +369,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -429,7 +429,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -453,7 +453,7 @@ class InitState extends State<PenjemputanScreen> {
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
                     // Array list of items
-                    dropdownColor: const Color.fromRGBO(178, 186, 159, 1),
+                    dropdownColor: AppColors.secondaryBorder,
                     style: const TextStyle(color: Colors.black, fontSize: 15),
                     items: lokasiPengambilanItems.map((String items) {
                       return DropdownMenuItem(
@@ -485,7 +485,7 @@ class InitState extends State<PenjemputanScreen> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromRGBO(178, 186, 159, 1),
+                color: AppColors.secondaryBorder,
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 10),
@@ -509,7 +509,7 @@ class InitState extends State<PenjemputanScreen> {
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
                     // Array list of items
-                    dropdownColor: const Color.fromRGBO(178, 186, 159, 1),
+                    dropdownColor: AppColors.secondaryBorder,
                     style: const TextStyle(color: Colors.black, fontSize: 15),
                     items: waktuPengambilanItems.map((String items) {
                       return DropdownMenuItem(
@@ -569,6 +569,23 @@ class InitState extends State<PenjemputanScreen> {
                           ),
                         );
                       });
+                } else if (lokasiPengambilan == '') {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.secondaryBorder,
+                          title: const Text(
+                            "Error",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          content: const Text(
+                            "Mohon isi lokasi pengambilan terlebih dahulu. Apabila kosong, masukkan alamat Anda terlebih dahulu pada halaman profil.",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      });
                 } else {
                   setDriver(timeConverter.format(waktuPengambilan));
                   aturPenjemputan();
@@ -598,7 +615,7 @@ class InitState extends State<PenjemputanScreen> {
                 margin: const EdgeInsets.only(left: 24, right: 24, top: 20),
                 height: 42,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(62, 75, 42, 1),
+                  color: AppColors.buttonBackground,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: const [
                     BoxShadow(
