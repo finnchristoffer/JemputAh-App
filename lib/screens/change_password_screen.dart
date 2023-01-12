@@ -144,12 +144,46 @@ class ChangePasswordState extends State<ChangePasswordPage> {
                     Icons.vpn_key, true, _newSecondPasswordTextController)),
             GestureDetector(
               onTap: () => {
-                if (_newPasswordTextController.text ==
-                    _newSecondPasswordTextController.text)
+                if (_oldPasswordTextController.text.isEmpty ||
+                    _newPasswordTextController.text.isEmpty ||
+                    _newSecondPasswordTextController.text.isEmpty)
                   {
-                    changePassword(
-                        oldPassword: _oldPasswordTextController.text,
-                        newPassword: _newPasswordTextController.text)
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: AppColors.secondaryBorder,
+                            title: const Text(
+                              "Error",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            content: const Text(
+                              "Tolong isi kolom yang masih kosong terlebih dahulu.",
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        })
+                  }
+                else if (_oldPasswordTextController.text ==
+                    _newPasswordTextController.text)
+                  {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: AppColors.secondaryBorder,
+                            title: const Text(
+                              "Error",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            content: const Text(
+                              "Password lama dan password baru yang Anda masukkan sama.",
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        })
                   }
                 else if (_newPasswordTextController.text !=
                     _newSecondPasswordTextController.text)
@@ -170,6 +204,13 @@ class ChangePasswordState extends State<ChangePasswordPage> {
                             ),
                           );
                         })
+                  }
+                else if (_newPasswordTextController.text ==
+                    _newSecondPasswordTextController.text)
+                  {
+                    changePassword(
+                        oldPassword: _oldPasswordTextController.text,
+                        newPassword: _newPasswordTextController.text)
                   }
               },
               child: Container(
