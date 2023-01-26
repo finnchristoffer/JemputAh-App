@@ -97,7 +97,7 @@ class TukarPage extends State<Tukar> {
               Container(
                 margin: const EdgeInsets.only(top: 40, left: 45),
                 child: const Text(
-                  "Total Poin",
+                  "Total Koin",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
